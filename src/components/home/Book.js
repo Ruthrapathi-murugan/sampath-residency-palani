@@ -40,6 +40,9 @@ export default function Book() {
                       <option value="1">Adult 1</option>
                       <option value="2">Adult 2</option>
                       <option value="3">Adult 3</option>
+                      <option value="4">Adult 4</option>
+                      <option value="5">Adult 5</option>
+                      
                     </select>
                   </div>
                   <div className="col-md-3">

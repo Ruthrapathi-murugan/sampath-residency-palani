@@ -14,12 +14,22 @@ export default function About() {
               </h6>
               <h1 className="mb-4">
                 Welcome to{" "}
-                <span className="text-primary text-uppercase">Hotelier</span>
+                <span className="text-primary text-uppercase">
+                  Sampath Residency
+                </span>
               </h1>
               <p className="mb-4">
-                Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit.
-                Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit,
-                sed stet lorem sit clita duo justo magna dolore erat amet
+                SAMPATH RESIDENCY A/C boarding & lodging is a modern posh,
+                luxury hotel, situated in the Very close to Palani Bus stand &
+                Palani Hill Temple Sampath Residency 200 meters from palani Bus
+                Stand and Palani Hill Temple 300 meters from Sampath Residency.
+                It is ideally located and easily accessible, the railway
+                station, bus stand & rope car within 5 minutes reach. SAMPATH
+                RESIDENCY A/C boarding & lodging is tasteful, luxurious and
+                designed to provide extreme comfort, making your stay just that
+                little bit more memorable. Make your selection from different
+                type of rooms, Air-Conditioned rooms and 20 & 50 Members Group
+                Stay Halls available @ budget rate.
               </p>
               <div className="row g-3 pb-4">
                 {about.map((item, key) => (
@@ -46,7 +56,7 @@ export default function About() {
                   <img
                     className="img-fluid rounded w-75 wow zoomIn"
                     data-wow-delay="0.1s"
-                    src="/assets/img/about-1.jpg"
+                    src="/assets/img/room-1.jpg"
                     style={{ marginTop: "25%" }}
                   />
                 </div>
@@ -54,21 +64,21 @@ export default function About() {
                   <img
                     className="img-fluid rounded w-100 wow zoomIn"
                     data-wow-delay="0.3s"
-                    src="/assets/img/about-2.jpg"
+                    src="/assets/img/room-2.jpg"
                   />
                 </div>
                 <div className="col-6 text-end">
                   <img
                     className="img-fluid rounded w-50 wow zoomIn"
                     data-wow-delay="0.5s"
-                    src="/assets/img/about-3.jpg"
+                    src="/assets/img/room-3.jpg"
                   />
                 </div>
                 <div className="col-6 text-start">
                   <img
                     className="img-fluid rounded w-75 wow zoomIn"
                     data-wow-delay="0.7s"
-                    src="/assets/img/about-4.jpg"
+                    src="/assets/img/room-3.jpg"
                   />
                 </div>
               </div>

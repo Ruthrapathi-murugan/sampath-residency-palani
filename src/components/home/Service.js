@@ -16,7 +16,7 @@ export default function Services() {
           </div>
           <div className="row g-4">
             {services.map((item, index) => (
-              <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+              <div className="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <a className="service-item rounded" href="">
                   <div className="service-icon bg-transparent border rounded p-1">
                     <div className="w-100 h-100 border rounded d-flex align-items-center justify-content-center">

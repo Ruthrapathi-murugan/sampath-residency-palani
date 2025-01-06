@@ -1,6 +1,7 @@
 import React from "react";
 import CommonHeading from "../common/CommonHeading";
 import { facility, roomItems } from "../data/Data";
+import { Link } from "react-router-dom";
 
 export default function Rooms() {
   return (
@@ -39,11 +40,11 @@ export default function Rooms() {
                     <div className="d-flex justify-content-between">
                       <a
                         className="btn btn-sm btn-primary rounded py-2 px-4"
-                        href=""
+                        href={`/room/${item.id}`}
                       >
                         {item.yellowbtn}
                       </a>
-                      <a className="btn btn-sm btn-dark rounded py-2 px-4" href="">
+                      <a className="btn btn-sm btn-dark rounded py-2 px-4" href={`/book/${item.id}`}>
                         {item.darkbtn}
                       </a>
                     </div>

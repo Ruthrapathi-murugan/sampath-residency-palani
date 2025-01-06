@@ -25,7 +25,7 @@ export default function Header() {
               to="/"
               className="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center"
             >
-              <h1 className="m-0 text-primary text-uppercase">Hotelier</h1>
+              <h3 className="m-0 text-primary text-uppercase">Sampath Residency</h3>
             </Link>
           </div>
           <div className="col-lg-9">
