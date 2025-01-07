@@ -31,7 +31,7 @@ export default function Header() {
           <div className="col-lg-9">
             <nav className="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
               <Link to="/" className="navbar-brand d-block d-lg-none">
-                <h1 className="m-0 text-primary text-uppercase">Sampath Residency</h1>
+                <h3 className="m-0 text-primary text-uppercase">Sampath Residency</h3>
               </Link>
               <button
                 type="button"

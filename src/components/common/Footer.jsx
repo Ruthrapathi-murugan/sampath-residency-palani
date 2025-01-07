@@ -28,7 +28,8 @@ export default function Footer() {
               </h6>
               {footerContact.map((val, index) => (
                 <p className="mb-2" key={index}>
-                  {val.icon} {val.name}
+                  {val.icon}
+                  <a href={`tel:${val.contact}`} style={{ textDecoration: "none" }}> {val.name}</a>
                 </p>
               ))}
               <div className="d-flex pt-2">

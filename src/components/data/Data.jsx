@@ -247,14 +247,14 @@ export const contact = [
     email: "selvamstores24@gmail.com",
   },
   {
-    icon: <i class="fa fa-envelope-open text-primary me-2"></i>,
-    title: "Technical",
-    email: "selvamstores24@gmail.com",
+    icon:  <i className="fas fa-phone-alt"></i>,
+    title: "Contact-No",
+    contact: "+91 98945-74934 ",
   },
   {
     icon: <i class="fa fa-envelope-open text-primary me-2"></i>,
     title: "General",
-    email: "selvamstores24@gmail.com",
+    email: "sampathresidency@gmail.com",
   },
 ];
 export const testimonial = [

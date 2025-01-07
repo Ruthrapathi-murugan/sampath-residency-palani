@@ -25,7 +25,12 @@ export default function Contact() {
                     </h6>
                     <p>
                       {item.icon}
+                      <a href={`tel:${item.contact}`} style={{ textDecoration: "none" }}>
+                      {item.contact}
+                        </a>
+                        <a href={`mailto:${item.email}`} style={{ textDecoration: "none" }}>
                       {item.email}
+                      </a>
                     </p>
                   </div>
                 ))}
