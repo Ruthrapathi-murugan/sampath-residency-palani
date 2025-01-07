@@ -304,7 +304,7 @@ export const roomItems = [
       <small class="fa fa-star text-primary"></small>,
     ],
     description:
-      "Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.",
+      "Ideal for small families or couples, these rooms provide a cozy and peaceful space to relax after a day of darshan at the renowned Palani Murugan Temple..",
     yellowbtn: "View Detail",
     darkbtn: "book now",
   },
@@ -322,7 +322,7 @@ export const roomItems = [
       <small class="fa fa-star text-primary"></small>,
     ],
     description:
-      "Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.",
+      " Perfect for medium-sized families or groups, these spacious rooms ensure a comfortable stay with essential amenities to make your pilgrimage memorable.",
     yellowbtn: "View Detail",
     darkbtn: "book now",
   },
@@ -339,7 +339,7 @@ export const roomItems = [
       <small class="fa fa-star text-primary"></small>,
     ],
     description:
-      "Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.",
+      "Designed for larger families or small pilgrim groups, these rooms offer ample space and a serene environment to rest and rejuvenate.",
     yellowbtn: "View Detail",
     darkbtn: "book now",
   },
@@ -357,7 +357,7 @@ export const roomItems = [
     ],
    
     description:
-      "Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.",
+      "Tailored for big families or devotional groups, these rooms combine space, comfort, and convenience, ensuring everyone enjoys a harmonious and pleasant stay.",
     yellowbtn: "View Detail",
     darkbtn: "book now",
   },
