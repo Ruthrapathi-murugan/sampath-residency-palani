@@ -5,7 +5,6 @@ import SocialIcons from "./SocialIcons";
 
 export default function Header() {
   const [navbarCollapse, setNavbarCollapse] = useState(false);
-
   const [activeDropdown, setActiveDropdown] = useState(null);
 
   const handleMouseEnter = (itemId) => {
@@ -14,6 +13,14 @@ export default function Header() {
 
   const handleMouseLeave = () => {
     setActiveDropdown(null);
+  };
+
+  const handleToggle = () => {
+    setNavbarCollapse((prevState) => !prevState);
+  };
+
+  const closeNavbar = () => {
+    setNavbarCollapse(false);
   };
 
   return (
@@ -26,39 +33,40 @@ export default function Header() {
               className="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center"
             >
               <h4 className="m-0 text-primary text-uppercase">
-              <img
-      src="/assets/img/logo.jpg"
-      alt="Sampath Residency Logo"
-      className="img-fluid"
-      style={{ maxHeight: "50px", marginRight: "10px" }}  // Adjust styles as needed
-    />
-                Sampath Residency</h4>
+                <img
+                  src="/assets/img/logo.jpg"
+                  alt="Sampath Residency Logo"
+                  className="img-fluid"
+                  style={{ maxHeight: "50px", marginRight: "10px" }}
+                />
+                Sampath Residency
+              </h4>
             </Link>
           </div>
-          <div className="col-lg-9" >
-            <nav className="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0" >
+          <div className="col-lg-9">
+            <nav className="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
               <Link to="/" className="navbar-brand d-block d-lg-none">
                 <h3 className="m-0 text-primary text-uppercase">
-                <img
-      src="/assets/img/logo.jpg"
-      alt="Sampath Residency Logo"
-      className="img-fluid"
-      style={{ maxHeight: "30px", marginRight: "10px" }}  // Adjust styles as needed
-    />Sampath Residency</h3>
+                  <img
+                    src="/assets/img/logo.jpg"
+                    alt="Sampath Residency Logo"
+                    className="img-fluid"
+                    style={{ maxHeight: "30px", marginRight: "10px" }}
+                  />
+                  Sampath Residency
+                </h3>
               </Link>
               <button
                 type="button"
                 className="navbar-toggler"
-                onClick={() => setNavbarCollapse(!navbarCollapse)}
+                onClick={handleToggle}
               >
                 <span className="navbar-toggler-icon"></span>
               </button>
               <div
-                className={
-                  navbarCollapse
-                    ? "navbar-collapse justify-content-around navbarCollapse"
-                    : "collapse navbar-collapse justify-content-around"
-                }
+                className={`navbar-collapse justify-content-around ${
+                  navbarCollapse ? "show" : "collapse"
+                }`}
               >
                 <div className="navbar-nav mr-auto py-0">
                   {navList.map((item, index) => (
@@ -77,15 +85,24 @@ export default function Header() {
                               activeDropdown === item.id ? "show" : ""
                             }`}
                           >
-                            {item.subItems.map((sub) => (
-                              <Link to={sub.path} className="dropdown-item">
+                            {item.subItems.map((sub, subIndex) => (
+                              <Link
+                                key={subIndex}
+                                to={sub.path}
+                                className="dropdown-item"
+                                onClick={closeNavbar} // Close navbar on link click
+                              >
                                 {sub.text}
                               </Link>
                             ))}
                           </div>
                         </div>
                       ) : (
-                        <Link to={item.path} className="nav-item nav-link">
+                        <Link
+                          to={item.path}
+                          className="nav-item nav-link"
+                          onClick={closeNavbar} // Close navbar on link click
+                        >
                           {item.text}
                         </Link>
                       )}
