@@ -43,7 +43,7 @@ export default function Header() {
       src="/assets/img/logo.jpg"
       alt="Sampath Residency Logo"
       className="img-fluid"
-      style={{ maxHeight: "50px", marginRight: "10px" }}  // Adjust styles as needed
+      style={{ maxHeight: "30px", marginRight: "10px" }}  // Adjust styles as needed
     />Sampath Residency</h3>
               </Link>
               <button
