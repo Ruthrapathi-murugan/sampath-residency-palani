@@ -95,6 +95,7 @@
     .navbar-dark .navbar-nav .nav-link  {
         margin-right: 0;
         padding: 10px 0;
+        width: auto;
     }
 }
 
@@ -124,6 +125,7 @@
     #header-carousel .carousel-item {
         position: relative;
         min-height: 450px;
+        width: auto;
     }
     
     #header-carousel .carousel-item img {

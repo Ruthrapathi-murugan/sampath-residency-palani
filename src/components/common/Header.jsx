@@ -35,15 +35,15 @@ export default function Header() {
                 Sampath Residency</h4>
             </Link>
           </div>
-          <div className="col-lg-9">
-            <nav className="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
+          <div className="col-lg-9" >
+            <nav className="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0" >
               <Link to="/" className="navbar-brand d-block d-lg-none">
                 <h3 className="m-0 text-primary text-uppercase">
                 <img
       src="/assets/img/logo.jpg"
       alt="Sampath Residency Logo"
       className="img-fluid"
-      style={{ maxHeight: "20px", marginRight: "5px" }}  // Adjust styles as needed
+      style={{ maxHeight: "30px", marginRight: "10px" }}  // Adjust styles as needed
     />Sampath Residency</h3>
               </Link>
               <button
