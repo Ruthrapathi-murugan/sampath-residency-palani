@@ -15,7 +15,12 @@ export default function Footer() {
             <div className="col-md-6 col-lg-4">
               <div className="bg-primary rounded p-4">
                 <Link to="/">
-                  <h1 className="text-white text-uppercase mb-3">Sampath Residency</h1>
+                  <h1 className="text-white text-uppercase mb-3">Sampath Residency</h1><img
+                  src="/assets/img/logo.jpg"
+                  alt="Sampath Residency Logo"
+                  className="img-fluid"
+                  style={{ maxHeight: "50px", marginRight: "10px" }}
+                />
                 </Link>
                 <p className="text-white mb-0">
                 SAMPATH RESIDENCY A/C boarding & lodging is a modern posh, luxury hotel, situated in the Very close to Palani Bus stand & Palani Hill Temple 

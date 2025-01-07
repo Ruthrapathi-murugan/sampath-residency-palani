@@ -39,7 +39,7 @@ export default function Contact() {
             <div class="col-md-6 wow fadeIn" data-wow-delay="0.1s">
               <iframe
                 class="position-relative rounded w-100 h-100"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.758454437312!2d77.76543017507453!3d12.858871687446209!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae73001a22786b%3A0x50d58d8d33f4e6d9!2sSampath%20Residency!5e0!3m2!1sen!2sin!4v1736155666075!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1004468.7649309416!2d76.37067524687498!3d10.444879299999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba9df4d869956d7%3A0xcba27d0cdf7bf7f!2sSampath%20Residency!5e0!3m2!1sen!2sin!4v1736251180031!5m2!1sen!2sin"
                 frameborder="0"
                 style={{ minHeight: "350px", border: "0" }}
                 allowfullscreen=""
