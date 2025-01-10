@@ -7,6 +7,7 @@ import PageNotFound from "./PageNotFound";
 import Room from "./RoomPage";
 import Services from "./ServicesPage";
 import Home from "../components/home/Home";
+import RoomDetails from "../components/home/RoomDetails";
 export {
   Home,
   Booking,
@@ -16,5 +17,6 @@ export {
   Contact,
   PageNotFound,
   Room,
+  RoomDetails,
   Services,
 };

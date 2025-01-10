@@ -187,18 +187,23 @@ export const footerItem = [
     UnitItem: [
       {
         name: "About Us",
+        to: "/about",  // Explicit path for this item
       },
       {
         name: "Contact Us",
+        to: "/contact",
       },
       {
         name: "Privacy Policy",
+        to: "/privacy-policy",
       },
       {
         name: "Terms & Condition",
+        to: "/terms-condition",
       },
       {
         name: "Support",
+        to: "/support",
       },
     ],
   },
@@ -208,22 +213,16 @@ export const footerItem = [
     UnitItem: [
       {
         name: "Food & Restaurant",
+        to: "/food-restaurant",
       },
       {
         name: "Spa & Fitness",
-      },
-      {
-        name: "Sports & Gaming",
-      },
-      {
-        name: "Event & Party",
-      },
-      {
-        name: "GYM & Yoga",
+        to: "/spa-fitness",
       },
     ],
   },
 ];
+
 
 export const footerContact = [
   {
@@ -303,6 +302,11 @@ export const roomItems = [
       <small class="fa fa-star text-primary"></small>,
       <small class="fa fa-star text-primary"></small>,
     ],
+    amenities: ["Air Conditioning",  "Free Wi-Fi",  "TV",  "Private Bathroom"],
+    additionalImages: [
+      "../assets/img/room-1.jpg",
+      "../assets/img/room-2.jpg",]
+    ,
     description:
       "Ideal for small families or couples, these rooms provide a cozy and peaceful space to relax after a day of darshan at the renowned Palani Murugan Temple..",
     yellowbtn: "View Detail",
@@ -321,6 +325,10 @@ export const roomItems = [
       <small class="fa fa-star text-primary"></small>,
       <small class="fa fa-star text-primary"></small>,
     ],
+    amenities: ["Air Conditioning",  "Free Wi-Fi",  "TV",  "Private Bathroom"],
+    additionalImages: [
+      "../assets/img/room-1.jpg",
+      "../assets/img/room-2.jpg",],
     description:
       " Perfect for medium-sized families or groups, these spacious rooms ensure a comfortable stay with essential amenities to make your pilgrimage memorable.",
     yellowbtn: "View Detail",
@@ -337,7 +345,10 @@ export const roomItems = [
       <small class="fa fa-star text-primary"></small>,
       <small class="fa fa-star text-primary"></small>,
       <small class="fa fa-star text-primary"></small>,
-    ],
+    ], amenities: ["Air Conditioning",  "Free Wi-Fi",  "TV",  "Private Bathroom"],
+    additionalImages: [
+      "../assets/img/room-1.jpg",
+      "../assets/img/room-2.jpg",],
     description:
       "Designed for larger families or small pilgrim groups, these rooms offer ample space and a serene environment to rest and rejuvenate.",
     yellowbtn: "View Detail",
@@ -355,7 +366,10 @@ export const roomItems = [
       <small class="fa fa-star text-primary"></small>,
       <small class="fa fa-star text-primary"></small>,
     ],
-   
+    amenities: ["Air Conditioning",  "Free Wi-Fi",  "TV",  "Private Bathroom"],
+    additionalImages: [
+      "../assets/img/room-1.jpg",
+      "../assets/img/room-2.jpg",],
     description:
       "Tailored for big families or devotional groups, these rooms combine space, comfort, and convenience, ensuring everyone enjoys a harmonious and pleasant stay.",
     yellowbtn: "View Detail",

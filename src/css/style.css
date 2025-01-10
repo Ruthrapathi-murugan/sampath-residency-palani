@@ -4,7 +4,20 @@
     --light: #F1F8FF;
     --dark: #0F172B;
 }
-
+.list-unstyled li {
+    font-size: 1rem; /* Adjust font size */
+    font-weight: 500; /* Add some weight */
+  }
+  
+  .list-unstyled li i {
+    font-size: 1.2rem; /* Slightly larger icons */
+    color: #007bff; /* Primary color for icons */
+  }
+  
+  .list-unstyled li span {
+    color: #6c757d; /* Secondary text color */
+  }
+  
 .fw-medium {
     font-weight: 500 !important;
 }

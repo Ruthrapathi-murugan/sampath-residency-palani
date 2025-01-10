@@ -15,6 +15,7 @@ import {
   Room,
   Services,
   Team,
+  RoomDetails,
   Testimonial,
 } from "./pages/index";
 import Footer from "./components/common/Footer";
@@ -34,6 +35,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/*" element={<PageNotFound />} />
             <Route path="/rooms" element={<Room />} />
+            <Route path="/room/:id" element={<RoomDetails />} />
             <Route path="/services" element={<Services />} />
             <Route path="/photos" element={<PhotosGallery/>}/>
           </Routes>
