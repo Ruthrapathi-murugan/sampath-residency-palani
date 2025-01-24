@@ -365,21 +365,25 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+   
 }
 
 .testimonial-carousel {
     padding-left: 65px;
     padding-right: 65px;
+    
 }
 
 .testimonial-carousel .testimonial-item {
     padding: 30px;
+    
+    gap: 10px;
 }
 
 .testimonial-carousel .owl-nav {
     position: absolute;
     width: 100%;
-    height: 40px;
+    height: 4px;
     top: calc(50% - 20px);
     left: 0;
     display: flex;
@@ -504,3 +508,54 @@
     padding-right: 0;
     border-right: none;
 }
+
+/* General responsive rule for mobile devices */
+@media (max-width: 768px) {
+    .testimonial {
+        display: flex;
+        flex-direction: column;
+      background-position: center;
+      padding: 20px; /* Reduce padding to save space */
+    }
+  
+    .testimonial-carousel {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  
+    .testimonial-carousel .testimonial-item {
+      padding: 15px; /* Reduce padding inside items */
+    }
+  
+    .testimonial-carousel .owl-nav {
+      height: 30px; /* Reduce navigation height */
+      top: calc(50% - 15px); /* Center align for smaller height */
+    }
+  
+    .testimonial-carousel .owl-nav .owl-prev,
+    .testimonial-carousel .owl-nav .owl-next {
+      width: 30px;
+      height: 30px;
+      font-size: 14px; /* Adjust icon size */
+    }
+  }
+  
+  /* Additional rule for very small devices (phones) */
+  @media (max-width: 480px) {
+    .testimonial-carousel {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  
+    .testimonial-carousel .testimonial-item {
+      padding: 10px; /* Further reduce padding for very small screens */
+    }
+  
+    .testimonial-carousel .owl-nav .owl-prev,
+    .testimonial-carousel .owl-nav .owl-next {
+      width: 25px;
+      height: 25px;
+      font-size: 12px; /* Smaller icons for compact view */
+    }
+  }
+  
