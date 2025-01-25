@@ -119,9 +119,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(15, 23, 43, .7);
+    background: rgba(2, 2, 2, 0.7);
     z-index: 1;
 }
+
+
 
 .carousel-control-prev,
 .carousel-control-next {
@@ -131,7 +133,8 @@
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     width: 3rem;
-    height: 3rem;
+    height: 4rem;
+  
 }
 
 @media (max-width: 768px) {
@@ -557,5 +560,35 @@
       height: 25px;
       font-size: 12px; /* Smaller icons for compact view */
     }
+  }
+  
+
+  /*photos */
+
+  .photo-item {
+    position: relative;
+    overflow: hidden;
+    height: 300px; /* Set a fixed height for the images */
+  }
+  
+  .photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image maintains aspect ratio while covering the container */
+    transition: transform 0.3s ease; /* Smooth zoom effect */
+  }
+  
+  .photo-item:hover img {
+    transform: scale(1.1); /* Zoom in on hover */
+  }
+  
+  /* Optional: Add rounded corners and shadows for a polished look */
+  .photo-item {
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  }
+  
+  .photo-item:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow on hover */
   }
   

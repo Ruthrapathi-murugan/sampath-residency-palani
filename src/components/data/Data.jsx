@@ -127,6 +127,41 @@ export const photos = [
     image: "../assets/img/outdoor.jpg",
    
   },
+
+  {
+    image: "../assets/img/outdoor3.jpeg",
+   
+  },
+  {
+    image: "../assets/img/coridor1.jpeg",
+   
+  },
+  {
+    image: "../assets/img/coridor2.jpeg",
+   
+  },
+  {
+    image: "../assets/img/coridor3.jpeg",
+   
+  },
+  {
+    image: "../assets/img/Room1.jpeg",
+   
+  },
+  {
+    image: "../assets/img/Room2.jpeg",
+   
+  },
+  {
+    image: "../assets/img/Room3.jpeg",
+   
+  },
+  
+  
+  {
+    image: "../assets/img/Room4.jpeg",
+   
+  },
   {
     image: "../assets/img/carousel-1.jpg",
    

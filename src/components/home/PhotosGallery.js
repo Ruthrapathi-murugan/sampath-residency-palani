@@ -2,6 +2,7 @@ import React from "react";
 import { photos } from "../data/Data"; // Correct path to data.js
 
 
+
 export default function PhotosGallery() {
   return (
     <div className="container-xxl py-5">
