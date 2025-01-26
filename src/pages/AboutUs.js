@@ -8,7 +8,6 @@ export default function AboutUs() {
     <>
       <Heading heading="About" title="Home" subtitle="About" />
       <About />
-      <Team />
-    </>
+      </>
   );
 }

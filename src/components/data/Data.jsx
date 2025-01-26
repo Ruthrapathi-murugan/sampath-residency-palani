@@ -113,11 +113,15 @@ export const services = [
     icon: <i class="fa fa-hotel fa-2x text-primary"></i>,
     name: "Rooms",
     discription: "We Have Multiple Choice of Rooms and Different Category",
+    path: "/rooms", // Route for Rooms page
+
+    
   },
   {
     icon: <i class="fa fa-utensils fa-2x text-primary"></i>,
     name: "Room services",
     discription: "We Provides 24*7 Rooms services",
+    path: "/roomservice", 
   },
 ];
 

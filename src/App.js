@@ -5,6 +5,7 @@ import "./css/animate.css";
 import "./css/animate.min.css";
 import "./App.css";
 import Header from "./components/common/Header";
+import RoomService from "./pages/RoomService"
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import {
   Home,
@@ -37,6 +38,7 @@ export default function App() {
             <Route path="/room/:id" element={<RoomDetails />} />
             <Route path="/services" element={<Services />} />
             <Route path="/photos" element={<PhotosGallery/>}/>
+            <Route path="/roomservice" element={<RoomService/>}/>
           </Routes>
           <Footer />
 
