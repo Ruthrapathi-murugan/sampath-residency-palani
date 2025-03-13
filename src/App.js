@@ -18,6 +18,7 @@ import {
   Team,
   RoomDetails,
   Testimonial,
+  GoogleReviews,
 } from "./pages/index";
 import Footer from "./components/common/Footer";
 import PhotosGallery from "./components/home/PhotosGallery";
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/photos" element={<PhotosGallery/>}/>
             <Route path="/roomservice" element={<RoomService/>}/>
+            <Route path="/googlereviews" element={<GoogleReviews/>}/>
           </Routes>
           <Footer />
 

@@ -39,6 +39,12 @@ export const navList = [
         path: "/testimonial",
         text: "Testimonial",
       },
+      {
+        id:54,
+        path: "/googlereviews",
+        text:"Google Reviews"
+
+      },
     ],
   },
   {

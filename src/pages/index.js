@@ -8,6 +8,7 @@ import Room from "./RoomPage";
 import Services from "./ServicesPage";
 import Home from "../components/home/Home";
 import RoomDetails from "../components/home/RoomDetails";
+import GoogleReviews from "../components/home/GoogleReviews";
 export {
   Home,
   Booking,
@@ -19,4 +20,5 @@ export {
   Room,
   RoomDetails,
   Services,
+  GoogleReviews,
 };
