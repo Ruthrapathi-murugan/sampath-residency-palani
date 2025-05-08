@@ -8,95 +8,121 @@ export default function Contact() {
     <>
       <Heading heading="Contact" title="Home" subtitle="Contact" />
 
-      <div class="container-xxl py-5">
-        <div class="container">
+      <div className="container-xxl py-5">
+        <div className="container">
           <CommonHeading
             heading="Contact Us"
             subtitle="Contact "
             title="For Any Query"
           />
-          <div class="row g-4">
-            <div class="col-12">
-              <div class="row gy-4">
+          <div className="row g-4">
+            <div className="col-12">
+              <div className="row gy-4">
                 {contact.map((item, index) => (
-                  <div class="col-md-4">
-                    <h6 class="section-title text-start text-primary text-uppercase">
+                  <div className="col-md-4" key={index}>
+                    <h6 className="section-title text-start text-primary text-uppercase">
                       {item.title}
                     </h6>
-                    <p>
+                    <div className="d-flex align-items-center mb-2">
                       {item.icon}
-                      <a href={`tel:${item.contact}`} style={{ textDecoration: "none" }}>
-                      {item.contact}
-                        </a>
-                        <a href={`mailto:${item.email}`} style={{ textDecoration: "none" }}>
-                      {item.email}
-                      </a>
-                    </p>
+                      <div className="ms-2">
+                        {/* Display single contact number */}
+                        {item.contact && !Array.isArray(item.contact) && (
+                          <a 
+                            href={`tel:${item.contact.replace(/\s+/g, '')}`} 
+                            className="text-decoration-none d-block"
+                          >
+                            {item.contact}
+                          </a>
+                        )}
+                        
+                        {/* Display multiple contact numbers */}
+                        {Array.isArray(item.contacts) && item.contacts.map((number, numIndex) => (
+                          <a
+                            key={numIndex}
+                            href={`tel:${number.replace(/\s+/g, '')}`}
+                            className="text-decoration-none d-block"
+                          >
+                            {number}
+                          </a>
+                        ))}
+                        
+                        {/* Display email */}
+                        {item.email && (
+                          <a
+                            href={`mailto:${item.email}`}
+                            className="text-decoration-none d-block"
+                          >
+                            {item.email}
+                          </a>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
-            <div class="col-md-6 wow fadeIn" data-wow-delay="0.1s">
+            <div className="col-md-6 wow fadeIn" data-wow-delay="0.1s">
               <iframe
-                class="position-relative rounded w-100 h-100"
+                className="position-relative rounded w-100 h-100"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1004468.7649309416!2d76.37067524687498!3d10.444879299999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba9df4d869956d7%3A0xcba27d0cdf7bf7f!2sSampath%20Residency!5e0!3m2!1sen!2sin!4v1736251180031!5m2!1sen!2sin"
-                frameborder="0"
+                frameBorder="0"
                 style={{ minHeight: "350px", border: "0" }}
-                allowfullscreen=""
+                allowFullScreen=""
                 aria-hidden="false"
-                tabindex="0"
+                tabIndex="0"
               ></iframe>
             </div>
-            <div class="col-md-6">
-              <div class="wow fadeInUp" data-wow-delay="0.2s">
+            <div className="col-md-6">
+              <div className="wow fadeInUp" data-wow-delay="0.2s">
                 <form>
-                  <div class="row g-3">
-                    <div class="col-md-6">
-                      <div class="form-floating">
+                  <div className="row g-3">
+                    <div className="col-md-6">
+                      <div className="form-floating">
                         <input
                           type="text"
-                          class="form-control"
+                          className="form-control"
                           id="name"
                           placeholder="Your Name"
                         />
-                        <label for="name">Your Name</label>
+                        <label htmlFor="name">Your Name</label>
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="form-floating">
+                    <div className="col-md-6">
+                      <div className="form-floating">
                         <input
                           type="email"
-                          class="form-control"
+                          className="form-control"
                           id="email"
                           placeholder="Your Email"
                         />
-                        <label for="email">Your Email</label>
+                        <label htmlFor="email">Your Email</label>
                       </div>
                     </div>
-                    <div class="col-12">
-                      <div class="form-floating">
+                    <div className="col-12">
+                      <div className="form-floating">
                         <input
                           type="text"
-                          class="form-control"
+                          className="form-control"
                           id="subject"
                           placeholder="Subject"
                         />
-                        <label for="subject">Subject</label>
+                        <label htmlFor="subject">Subject</label>
                       </div>
                     </div>
-                    <div class="col-12">
-                      <div class="form-floating">
+                    <div className="col-12">
+                      <div className="form-floating">
                         <textarea
-                          class="form-control"
+                          className="form-control"
                           placeholder="Leave a message here"
                           id="message"
                           style={{ height: "150px" }}
                         ></textarea>
-                        <label for="message">Message</label>
+                        <label htmlFor="message">Message</label>
                       </div>
                     </div>
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100 py-3" type="submit">
+                    <div className="col-12">
+                      <button className="btn btn-primary w-100 py-3" type="submit">
                         Send Message
                       </button>
                     </div>

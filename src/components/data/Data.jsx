@@ -78,7 +78,7 @@ export const socialIcons = [
 
 export const carouselData = [
   {
-    img: "../assets/img/carousel-1.jpg",
+    img: "../assets/img/Outdoor1.jpg",
     title: "Discover A Brand Luxurious & Budget Hotel in Palani",
     subtitle: "luxury living",
     btn1: "Our Room",
@@ -90,7 +90,8 @@ export const carouselData = [
     subtitle: "luxury living",
     btn1: "Our Room",
     btn2: "Book Room",
-  },
+  }, 
+
 ];
 export const about = [
   {
@@ -289,14 +290,17 @@ export const contact = [
     email: "selvamstores24@gmail.com",
   },
   {
-    icon:  <i className="fas fa-phone-alt"></i>,
-    title: "Contact-No",
-    contact: "+91 98945-74934 ",
+    icon: <i className="fas fa-phone-alt text-primary me-2"></i>,
+    title: "Contact Numbers",
+    contacts: [  // Changed to array for multiple numbers
+      "+91 98945-74934",
+      "+91 96263-80310" // Add your second number here
+    ]
   },
   {
     icon: <i class="fa fa-envelope-open text-primary me-2"></i>,
     title: "General",
-    email: "sampathresidency@gmail.com",
+    email: "sampathresidencyatpalani@gmail.com",
   },
 ];
 export const testimonial = [
@@ -348,8 +352,12 @@ export const roomItems = [
     amenities: ["Air Conditioning",  "Free Wi-Fi",  "TV",  "Private Bathroom"],
     additionalImages: [
       "../assets/img/room-1.jpg",
-      "../assets/img/room-2.jpg",]
-    ,
+      "../assets/img/room-2.jpg",],
+      additionalVideos: [
+        "../assets/img/video.mp4",
+        "../assets/img/video.mp4"
+      ],
+    
     description:
       "Ideal for small families or couples, these rooms provide a cozy and peaceful space to relax after a day of darshan at the renowned Palani Murugan Temple..",
     yellowbtn: "View Detail",
@@ -372,6 +380,10 @@ export const roomItems = [
     additionalImages: [
       "../assets/img/room-1.jpg",
       "../assets/img/room-2.jpg",],
+      additionalVideos: [
+        "../assets/img/video.mp4",
+        "../assets/img/video.mp4"
+      ],
     description:
       " Perfect for medium-sized families or groups, these spacious rooms ensure a comfortable stay with essential amenities to make your pilgrimage memorable.",
     yellowbtn: "View Detail",
@@ -392,6 +404,10 @@ export const roomItems = [
     additionalImages: [
       "../assets/img/room-1.jpg",
       "../assets/img/room-2.jpg",],
+      additionalVideos: [
+        "../assets/img/video.mp4",
+        "../assets/img/video.mp4"
+      ],
     description:
       "Designed for larger families or small pilgrim groups, these rooms offer ample space and a serene environment to rest and rejuvenate.",
     yellowbtn: "View Detail",
@@ -413,6 +429,10 @@ export const roomItems = [
     additionalImages: [
       "../assets/img/room-1.jpg",
       "../assets/img/room-2.jpg",],
+      additionalVideos: [
+        "../assets/img/video.mp4",
+        "../assets/img/video.mp4"
+      ],
     description:
       "Tailored for big families or devotional groups, these rooms combine space, comfort, and convenience, ensuring everyone enjoys a harmonious and pleasant stay.",
     yellowbtn: "View Detail",
