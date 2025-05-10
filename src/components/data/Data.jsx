@@ -355,7 +355,7 @@ export const roomItems = [
       "../assets/img/room-2.jpg",],
       additionalVideos: [
         "../assets/img/video.mp4",
-        "../assets/img/video.mp4"
+        "../assets/img/video.mp4",
       ],
     
     description:
@@ -382,7 +382,7 @@ export const roomItems = [
       "../assets/img/room-2.jpg",],
       additionalVideos: [
         "../assets/img/video.mp4",
-        "../assets/img/video.mp4"
+        "../assets/img/video.mp4",
       ],
     description:
       " Perfect for medium-sized families or groups, these spacious rooms ensure a comfortable stay with essential amenities to make your pilgrimage memorable.",
@@ -406,7 +406,7 @@ export const roomItems = [
       "../assets/img/room-2.jpg",],
       additionalVideos: [
         "../assets/img/video.mp4",
-        "../assets/img/video.mp4"
+        "../assets/img/video.mp4",
       ],
     description:
       "Designed for larger families or small pilgrim groups, these rooms offer ample space and a serene environment to rest and rejuvenate.",
