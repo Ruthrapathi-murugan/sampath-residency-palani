@@ -133,10 +133,13 @@ export const services = [
 // photos upload for rooms 
 export const photos = [
   {
-    image: "../assets/img/outdoor.jpg",
-   
+    image: "../assets/img/Outside2.jpeg",
+ 
   },
-
+ {
+    image: "../assets/img/Outside1.jpg",
+ 
+  },
   {
     image: "../assets/img/outdoor3.jpeg",
    
@@ -197,6 +200,15 @@ export const photos = [
   },
   {
     image: "../assets/img/3.jpg",
+ 
+  },
+  {
+    image: "../assets/img/Outside1.jpg",
+ 
+  },
+   
+   {
+    image: "../assets/img/Outside1.jpg",
  
   },
 ];
@@ -341,6 +353,7 @@ export const roomItems = [
     id: 1,
     img: "../assets/img/room-1.jpg",
     price: "Rs.1800/night",
+  
     name: "Double bed A/C",
     star: [
       <small class="fa fa-star text-primary"></small>,
@@ -352,7 +365,8 @@ export const roomItems = [
     amenities: ["Air Conditioning",  "Free Wi-Fi",  "TV",  "Private Bathroom"],
     additionalImages: [
       "../assets/img/room-1.jpg",
-      "../assets/img/room-2.jpg",],
+      "../assets/img/room-2.jpg",
+      "../assets/img/Room3.jpeg",],
       additionalVideos: [
         "../assets/img/video.mp4",
         "../assets/img/video.mp4",
@@ -402,8 +416,8 @@ export const roomItems = [
       <small class="fa fa-star text-primary"></small>,
     ], amenities: ["Air Conditioning",  "Free Wi-Fi",  "TV",  "Private Bathroom"],
     additionalImages: [
-      "../assets/img/room-1.jpg",
-      "../assets/img/room-2.jpg",],
+      "../assets/img/room-3.jpg",
+      "../assets/img/room-3.jpg",],
       additionalVideos: [
         "../assets/img/video.mp4",
         "../assets/img/video.mp4",
@@ -427,7 +441,7 @@ export const roomItems = [
     ],
     amenities: ["Air Conditioning",  "Free Wi-Fi",  "TV",  "Private Bathroom"],
     additionalImages: [
-      "../assets/img/room-1.jpg",
+      "../assets/img/room-3.jpg",
       "../assets/img/room-2.jpg",],
       additionalVideos: [
         "../assets/img/video.mp4",

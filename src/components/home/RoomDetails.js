@@ -83,7 +83,7 @@ export default function RoomDetails() {
           <img
             src={room.img}
             alt={room.name}
-            style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+            style={{  width: "100%", height: "auto", borderRadius: "8px" }}
             className="rounded"
           />
         )}

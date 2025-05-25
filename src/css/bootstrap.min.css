@@ -3844,7 +3844,7 @@ fieldset:disabled .btn {
     display: none;
   }
 }
-@media (min-width: 1400px) {
+@media (min-width: 400px) {
   .navbar-expand-xxl {
     flex-wrap: nowrap;
     justify-content: flex-start;
@@ -3965,6 +3965,24 @@ fieldset:disabled .btn {
 .navbar-dark .navbar-text a:hover,
 .navbar-dark .navbar-text a:focus {
   color: #fff;
+}
+@media (max-width: 991.98px) {
+  .navbar-brand h4 {
+    font-size: 1.2rem; /* Adjust font size for smaller screens */
+  }
+  
+  .navbar-brand img {
+    max-height: 40px !important; /* Adjust logo size for smaller screens */
+  }
+  
+  .navbar-toggler {
+    margin-left: auto; /* Push toggle button to the right */
+    align-self: center; /* Vertically center the toggle button */
+  }
+  
+  .bg-dark.d-flex {
+    padding: 0.5rem 1rem; /* Add some padding */
+  }
 }
 .card {
   position: relative;

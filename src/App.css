@@ -1,12 +1,14 @@
 .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link.active {
+
     color : #fea116;
 }
 
 .navbar-dark .navbar-nav .nav-link {
     margin-right: 30px;
     padding: 25px 0;
-    color: #FFFFFF;
-    font-size: 15px;
+    color: #f5f5f5;
+    font-size: 18px;
+    
     text-transform: uppercase;
     outline: none;
 }

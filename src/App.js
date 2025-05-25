@@ -37,6 +37,7 @@ export default function App() {
             <Route path="/*" element={<PageNotFound />} />
             <Route path="/rooms" element={<Room />} />
             <Route path="/room/:id" element={<RoomDetails />} />
+            <Route path="/rooms/:bedType" element={<RoomDetails />} />
             <Route path="/services" element={<Services />} />
             <Route path="/photos" element={<PhotosGallery/>}/>
             <Route path="/roomservice" element={<RoomService/>}/>

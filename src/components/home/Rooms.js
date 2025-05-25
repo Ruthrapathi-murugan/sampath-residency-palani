@@ -44,7 +44,7 @@ export default function Rooms() {
                       >
                         {item.yellowbtn}
                       </a>
-                      <a className="btn btn-sm btn-dark rounded py-2 px-4" href={`/book/${item.id}`}>
+                      <a className="btn btn-sm btn-dark rounded py-2 px-4" href={`/room/${item.id}`}>
                         {item.darkbtn}
                       </a>
                     </div>
