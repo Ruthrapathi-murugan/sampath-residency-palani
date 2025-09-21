@@ -299,7 +299,7 @@ export const contact = [
   {
     icon: <i class="fa fa-envelope-open text-primary me-2"></i>,
     title: "Booking",
-    email: "selvamstores24@gmail.com",
+    email: "sampathresidencyatpalani@gmail.com",
   },
   {
     icon: <i className="fas fa-phone-alt text-primary me-2"></i>,
