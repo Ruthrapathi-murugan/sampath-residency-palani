@@ -31,14 +31,32 @@ export default function RoomDetails() {
     setIsSubmitting(true);
 
     try {
+      // Prepare payload with proper types
+      const payload = {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        address: formData.address.trim(),
+        checkIn: formData.checkIn, // string in YYYY-MM-DD format from input[type=date]
+        checkOut: formData.checkOut, // string in YYYY-MM-DD format
+        specialRequests: formData.specialRequests.trim(),
+        roomCategory: formData.roomCategory,
+        roomPrice: Number(formData.roomPrice.replace(/[^\d]/g, "")), // ensure number
+      };
+
+      console.log("Booking payload:", payload);
+
       const response = await axios.post(
         "https://backend-sampath-residency.onrender.com/api/bookings",
-        formData
+        payload
       );
+
+      console.log("Server response:", response.data);
 
       if (response.data.success) {
         setSubmitSuccess(true);
-        // Reset form after successful submission
+
+        // Reset form
         setFormData({
           name: "",
           email: "",
@@ -50,10 +68,27 @@ export default function RoomDetails() {
           roomCategory: room?.name || "",
           roomPrice: room?.price || "",
         });
+      } else {
+        console.error(
+          "Booking failed: Server returned success=false",
+          response.data
+        );
+        alert("Booking failed. Please check your details and try again.");
       }
     } catch (error) {
-      console.error("Booking failed:", error);
-      alert("Failed to send booking. Please try again later.");
+      if (error.response) {
+        console.error("Booking failed. Status:", error.response.status);
+        console.error("Response data:", error.response.data);
+        alert(
+          `Booking failed: ${error.response.data.message || "Invalid request"}`
+        );
+      } else if (error.request) {
+        console.error("No response received:", error.request);
+        alert("Booking failed: No response from server.");
+      } else {
+        console.error("Error:", error.message);
+        alert(`Booking failed: ${error.message}`);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -73,9 +108,18 @@ export default function RoomDetails() {
       <h2 className="mb-4">{room.name}</h2>
 
       {/* Main Media Display */}
-      <div className="mb-4" style={{ maxHeight: "500px", width: "200px", overflow: "hidden" }}>
+      <div
+        className="mb-4"
+        style={{ maxHeight: "500px", width: "200px", overflow: "hidden" }}
+      >
         {room.mediaType === "video" ? (
-          <video controls autoPlay muted loop style={{ width: "100%", height: "auto", borderRadius: "8px" }}>
+          <video
+            controls
+            autoPlay
+            muted
+            loop
+            style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+          >
             <source src={room.video} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
@@ -83,7 +127,7 @@ export default function RoomDetails() {
           <img
             src={room.img}
             alt={room.name}
-            style={{  width: "100%", height: "auto", borderRadius: "8px" }}
+            style={{ width: "100%", height: "auto", borderRadius: "8px" }}
             className="rounded"
           />
         )}
@@ -96,7 +140,12 @@ export default function RoomDetails() {
             <img
               src={image}
               alt={`Additional view ${index + 1}`}
-              style={{ width: "100%", height: "200px", objectFit: "cover", borderRadius: "8px" }}
+              style={{
+                width: "100%",
+                height: "200px",
+                objectFit: "cover",
+                borderRadius: "8px",
+              }}
               className="rounded"
             />
           </div>
@@ -105,7 +154,12 @@ export default function RoomDetails() {
           <div key={`vid-${index}`} className="col-md-4 mb-3">
             <video
               controls
-              style={{ width: "100%", height: "200px", objectFit: "cover", borderRadius: "8px" }}
+              style={{
+                width: "100%",
+                height: "200px",
+                objectFit: "cover",
+                borderRadius: "8px",
+              }}
             >
               <source src={video} type="video/mp4" />
               Your browser does not support the video tag.
@@ -251,7 +305,10 @@ export default function RoomDetails() {
                       value={formData.checkOut}
                       onChange={handleInputChange}
                       required
-                      min={formData.checkIn || new Date().toISOString().split("T")[0]} // 👉 check-out can't be before check-in
+                      min={
+                        formData.checkIn ||
+                        new Date().toISOString().split("T")[0]
+                      } // 👉 check-out can't be before check-in
                     />
                   </div>
 
