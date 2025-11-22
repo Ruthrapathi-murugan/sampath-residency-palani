@@ -30,15 +30,16 @@ export default function About() {
               <p className="mb-4">
                 SAMPATH RESIDENCY A/C boarding & lodging is a modern posh,
                 luxury hotel, situated in the Very close to Palani Bus stand &
-                Palani Hill Temple Sampath Residency 200 meters from palani Bus
-                Stand and Palani Hill Temple 300 meters from Sampath Residency.
+                Palani Hill Temple Sampath Residency 1km from palani Bus
+                Stand and Palani Hill Temple 400m from Sampath Residency.
                 It is ideally located and easily accessible, the railway
                 station, bus stand & rope car within 5 minutes reach. SAMPATH
                 RESIDENCY A/C boarding & lodging is tasteful, luxurious and
                 designed to provide extreme comfort, making your stay just that
                 little bit more memorable. Make your selection from different
-                type of rooms, Air-Conditioned rooms and 20 & 50 Members Group
-                Stay Halls available @ budget rate.
+                type of rooms, Air-Conditioned rooms and Non Air-Conditioned
+                rooms, all of which are well furnished and equipped with modern
+                amenities. The hotel is designed to provide a comfortable stay
               </p>
               <div className="row g-3 pb-4">
                 {about.map((item, key) => (
