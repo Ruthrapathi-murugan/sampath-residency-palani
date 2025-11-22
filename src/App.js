@@ -22,6 +22,8 @@ import {
 } from "./pages/index";
 import Footer from "./components/common/Footer";
 import PhotosGallery from "./components/home/PhotosGallery";
+import ChatBot from "./components/chatbot/ChatBot";
+
 export default function App() {
   return (
     <>
@@ -44,7 +46,8 @@ export default function App() {
             <Route path="/googlereviews" element={<GoogleReviews/>}/>
           </Routes>
           <Footer />
-
+  {/* 🔹 Floating AI Chatbot – appears on every page */}
+          <ChatBot />
         </Router>
       </div>
     </>

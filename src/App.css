@@ -22,3 +22,160 @@
 .bg-image {
     background-image: url('../public/assets/img/carousel-1.jpg');
 }
+
+
+/* === Sampath Residency Floating Chatbot === */
+
+.sr-chatbot-launcher {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.sr-chatbot-fab {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  color: #f9fafb;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.sr-chatbot-panel {
+  width: 360px;
+  max-width: 90vw;
+  height: 480px;
+  max-height: 70vh;
+  background: #020617;
+  border-radius: 18px;
+  margin-bottom: 10px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #1f2937;
+}
+
+.sr-chatbot-header {
+  background: #111827;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sr-chatbot-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.sr-chatbot-subtitle {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.sr-chatbot-close {
+  border: none;
+  background: transparent;
+  color: #9ca3af;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Chat content */
+
+.sr-chat-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 8px;
+  color: #e5e7eb;
+  background: #020617;
+}
+
+.sr-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px;
+  margin-bottom: 8px;
+}
+
+.sr-message {
+  margin: 6px 0;
+  padding: 7px 11px;
+  border-radius: 12px;
+  max-width: 80%;
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.sr-message.sr-user {
+  background: #1d4ed8;
+  margin-left: auto;
+}
+
+.sr-message.sr-bot {
+  background: #374151;
+  margin-right: auto;
+}
+
+.sr-input-row {
+  display: flex;
+  gap: 6px;
+}
+
+.sr-input-row input {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #4b5563;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 13px;
+}
+
+.sr-input-row input::placeholder {
+  color: #6b7280;
+}
+
+.sr-input-row button {
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 8px 10px;
+  white-space: nowrap;
+}
+
+.sr-mic-btn {
+  background: #4b5563;
+  color: #f9fafb;
+}
+
+.sr-send-btn {
+  background: #2563eb;
+  color: #f9fafb;
+}
+
+@media (max-width: 480px) {
+  .sr-chatbot-panel {
+    width: 320px;
+    max-height: 65vh;
+  }
+
+  .sr-chatbot-fab {
+    width: 52px;
+    height: 52px;
+    font-size: 22px;
+  }
+}
