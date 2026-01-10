@@ -63,18 +63,14 @@ export const navList = [
 export const socialIcons = [
   {
     icon: <i className="fab fa-facebook-f"></i>,
+    url: "https://www.facebook.com/sampathresidency" // replace with real page
   },
-  
   {
     icon: <i className="fab fa-instagram"></i>,
-  },
-  {
-    icon: <i className="fab fa-linkedin-in"></i>,
-  },
-  {
-    icon: <i className="fab fa-youtube"></i>,
+    url: "https://www.instagram.com/sampath__residency/" // replace with real page
   },
 ];
+
 
 export const carouselData = [
   {

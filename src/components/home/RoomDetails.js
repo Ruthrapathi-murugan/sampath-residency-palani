@@ -1,12 +1,19 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 import { roomItems } from "../data/Data";
-import axios from "axios"; // For API calls to send emails
+import emailjs from "@emailjs/browser"; // For API calls to send emails
 
 export default function RoomDetails() {
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
   const room = roomItems.find((item) => item.id === parseInt(id));
   const [showBookingForm, setShowBookingForm] = useState(false);
+
+  useEffect(() => {
+    if (searchParams.get("book") === "true") {
+      setShowBookingForm(true);
+    }
+  }, [searchParams]);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,37 +33,65 @@ export default function RoomDetails() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    try {
-      // Prepare payload with proper types
-      const payload = {
-        name: formData.name.trim(),
-        email: formData.email.trim(),
-        phone: formData.phone.trim(),
-        address: formData.address.trim(),
-        checkIn: formData.checkIn, // string in YYYY-MM-DD format from input[type=date]
-        checkOut: formData.checkOut, // string in YYYY-MM-DD format
-        specialRequests: formData.specialRequests.trim(),
-        roomCategory: formData.roomCategory,
-        roomPrice: Number(formData.roomPrice.replace(/[^\d]/g, "")), // ensure number
-      };
+    // EmailJS constants - User needs to replace these with their own from emailjs.com
+   const serviceID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+   const hotelTemplateID = process.env.REACT_APP_EMAILJS_HOTEL_TEMPLATE_ID;
+   const customerTemplateID = process.env.REACT_APP_EMAILJS_CUSTOMER_TEMPLATE_ID;
+   const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
 
-      console.log("Booking payload:", payload);
+   console.log("Debug EmailJS Keys:", {
+       serviceID: !!serviceID,
+       hotelTemplateID: !!hotelTemplateID,
+       customerTemplateID: !!customerTemplateID,
+       publicKey: !!publicKey,
+   });
 
-      const response = await axios.post(
-        "https://backend-sampath-residency.onrender.com/api/bookings",
-        payload
-      );
+   if (!serviceID || !hotelTemplateID || !publicKey) {
+       alert("EmailJS configuration is missing. Please check the logs.");
+       setIsSubmitting(false);
+       return;
+   }
 
-      console.log("Server response:", response.data);
 
-      if (response.data.success) {
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email, // Often used in 'Reply To'
+      email: formData.email,      // Common default variable for customer email
+      reply_to: formData.email,   // Explicit 'Reply To' variable
+      phone: formData.phone,
+      address: formData.address,
+      check_in: formData.checkIn,
+      check_out: formData.checkOut,
+      special_requests: formData.specialRequests,
+      room_category: formData.roomCategory,
+      room_price: formData.roomPrice,
+      to_email: formData.email, // For customer confirmation
+    };
+
+    // Debug the payload
+    console.log("Sending Emails with Params:", templateParams);
+
+    // 1. Send Booking Details to Hotel
+    emailjs
+      .send(serviceID, hotelTemplateID, templateParams, publicKey)
+      .then((response) => {
+        console.log("✅ Hotel Email Sent!", response.status, response.text);
+
+        // 2. Send Confirmation to Customer
+        return emailjs.send(
+          serviceID,
+          customerTemplateID,
+          templateParams,
+          publicKey
+        );
+      })
+      .then((response) => {
+        console.log("✅ Customer Email Sent!", response.status, response.text);
         setSubmitSuccess(true);
-
-        // Reset form
         setFormData({
           name: "",
           email: "",
@@ -68,30 +103,19 @@ export default function RoomDetails() {
           roomCategory: room?.name || "",
           roomPrice: room?.price || "",
         });
-      } else {
-        console.error(
-          "Booking failed: Server returned success=false",
-          response.data
-        );
-        alert("Booking failed. Please check your details and try again.");
-      }
-    } catch (error) {
-      if (error.response) {
-        console.error("Booking failed. Status:", error.response.status);
-        console.error("Response data:", error.response.data);
-        alert(
-          `Booking failed: ${error.response.data.message || "Invalid request"}`
-        );
-      } else if (error.request) {
-        console.error("No response received:", error.request);
-        alert("Booking failed: No response from server.");
-      } else {
-        console.error("Error:", error.message);
-        alert(`Booking failed: ${error.message}`);
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
+      })
+      .catch((err) => {
+        console.error("❌ Email Sending Failed:", err);
+        let errorMessage = "Failed to send booking request.";
+        if (err.status === 400) {
+          errorMessage += " (Bad Request: Check Service ID, Template ID, or Public Key in .env)";
+        }
+        if (err.text) errorMessage += "\nError Details: " + err.text;
+        alert(errorMessage);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   if (!room) {
