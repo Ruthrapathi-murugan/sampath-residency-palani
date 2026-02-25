@@ -19,10 +19,12 @@ import {
   RoomDetails,
   Testimonial,
   GoogleReviews,
+  AdminPanel,
 } from "./pages/index";
 import Footer from "./components/common/Footer";
 import PhotosGallery from "./components/home/PhotosGallery";
 import ChatBot from "./components/chatbot/ChatBot";
+import WhatsAppWidget from "./components/common/WhatsAppWidget";
 
 export default function App() {
   return (
@@ -41,13 +43,15 @@ export default function App() {
             <Route path="/room/:id" element={<RoomDetails />} />
             <Route path="/rooms/:bedType" element={<RoomDetails />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/photos" element={<PhotosGallery/>}/>
-            <Route path="/roomservice" element={<RoomService/>}/>
-            <Route path="/googlereviews" element={<GoogleReviews/>}/>
+            <Route path="/photos" element={<PhotosGallery />} />
+            <Route path="/roomservice" element={<RoomService />} />
+            <Route path="/googlereviews" element={<GoogleReviews />} />
+            <Route path="/admin" element={<AdminPanel />} />
           </Routes>
           <Footer />
-  {/* 🔹 Floating AI Chatbot – appears on every page */}
+          {/* 🔹 Floating AI Chatbot – appears on every page */}
           <ChatBot />
+          <WhatsAppWidget />
         </Router>
       </div>
     </>

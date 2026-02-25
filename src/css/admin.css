@@ -1,0 +1,534 @@
+/* Admin Panel Styles */
+
+.admin-panel {
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+/* ============ Admin Login ============ */
+.admin-login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.admin-login-box {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.admin-login-header h1 {
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.admin-login-header p {
+  color: #666;
+  font-size: 14px;
+}
+
+.admin-login-form .form-group {
+  margin-bottom: 20px;
+}
+
+.admin-login-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.admin-login-form .form-control {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.admin-login-form .form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.admin-login-form .form-control.is-invalid {
+  border-color: #dc3545;
+}
+
+.admin-login-form .invalid-feedback {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.admin-login-btn {
+  padding: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.admin-login-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.admin-login-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.admin-login-footer {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.admin-login-footer small {
+  color: #999;
+}
+
+/* ============ Admin Dashboard ============ */
+.admin-dashboard {
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+.admin-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.admin-header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-branding h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.admin-branding p {
+  margin: 5px 0 0 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.admin-logout-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-logout-btn:hover {
+  background-color: #c82333;
+}
+
+.admin-logout-btn i {
+  margin-right: 8px;
+}
+
+/* ============ Admin Tabs ============ */
+.admin-tabs {
+  max-width: 1200px;
+  margin: 0 auto 30px auto;
+  padding: 0 20px;
+  display: flex;
+  gap: 10px;
+  border-bottom: 2px solid #ddd;
+  overflow-x: auto;
+}
+
+.tab-btn {
+  padding: 15px 25px;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.tab-btn i {
+  margin-right: 8px;
+}
+
+.tab-btn:hover {
+  color: #333;
+}
+
+.tab-btn.active {
+  color: #667eea;
+  border-bottom-color: #667eea;
+}
+
+/* ============ Admin Content ============ */
+.admin-content {
+  max-width: 1200px;
+  margin: 0 auto 30px auto;
+  padding: 0 20px;
+}
+
+.inventory-manager,
+.rate-manager,
+.room-blocking-manager {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.inventory-manager h3,
+.rate-manager h3,
+.room-blocking-manager h3 {
+  color: #333;
+  margin-bottom: 25px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.admin-form-group {
+  margin-bottom: 25px;
+}
+
+.admin-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.admin-form-group .form-control {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  max-width: 300px;
+}
+
+.admin-form-group .form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* ============ Inventory & Rate Tables ============ */
+.inventory-table-container,
+.rate-table-container {
+  margin-bottom: 25px;
+  overflow-x: auto;
+}
+
+.inventory-table-container .table,
+.rate-table-container .table {
+  margin-bottom: 0;
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+  color: #333;
+  font-weight: 600;
+  border-bottom: 2px solid #ddd;
+  padding: 15px;
+}
+
+.table tbody td {
+  padding: 15px;
+  vertical-align: middle;
+  border-bottom: 1px solid #eee;
+}
+
+.table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.inventory-input,
+.rate-input {
+  max-width: 120px;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.inventory-input:focus,
+.rate-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  color: #666;
+}
+
+/* ============ Room Blocking Cards ============ */
+.blocking-container {
+  margin-bottom: 25px;
+}
+
+.blocking-card {
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.blocking-card:hover {
+  border-color: #667eea;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+}
+
+.blocking-card.blocked {
+  border-color: #dc3545;
+  background-color: #fff5f5;
+}
+
+.blocking-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.blocking-card-header h5 {
+  margin: 0;
+  color: #333;
+  font-weight: 600;
+}
+
+.blocking-card-header .badge {
+  font-size: 12px;
+  padding: 5px 10px;
+}
+
+.blocking-card-body {
+  margin-bottom: 15px;
+}
+
+.blocking-toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.blocking-toggle input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  cursor: pointer;
+  accent-color: #dc3545;
+}
+
+.blocking-toggle input[type="checkbox"]:checked {
+  accent-color: #dc3545;
+}
+
+.toggle-text {
+  font-weight: 500;
+}
+
+.blocking-card-footer {
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.blocking-card-footer small {
+  color: #666;
+}
+
+/* ============ Admin Actions ============ */
+.admin-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.admin-actions .btn {
+  padding: 12px 25px;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-actions .btn-primary {
+  background-color: #667eea;
+  color: white;
+}
+
+.admin-actions .btn-primary:hover {
+  background-color: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.admin-actions .btn i {
+  margin-right: 8px;
+}
+
+/* ============ Info Box ============ */
+.info-box {
+  background: #f8f9fa;
+  border-left: 4px solid #667eea;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.info-box h5 {
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.info-box ul {
+  margin: 0;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.info-box li {
+  color: #666;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* ============ Alert Messages ============ */
+.alert {
+  padding: 15px 20px;
+  border-radius: 5px;
+  margin-bottom: 25px;
+  font-size: 14px;
+  border: none;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* ============ Responsive Design ============ */
+@media (max-width: 768px) {
+  .admin-header-content {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .admin-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab-btn {
+    padding: 12px 15px;
+    font-size: 13px;
+  }
+
+  .inventory-manager,
+  .rate-manager,
+  .room-blocking-manager {
+    padding: 20px;
+  }
+
+  .table {
+    font-size: 13px;
+  }
+
+  .table thead th,
+  .table tbody td {
+    padding: 10px;
+  }
+
+  .inventory-input,
+  .rate-input {
+    max-width: 100%;
+  }
+
+  .blocking-card {
+    padding: 15px;
+  }
+
+  .admin-actions {
+    flex-direction: column;
+  }
+
+  .admin-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-login-box {
+    padding: 25px;
+  }
+
+  .admin-branding h2 {
+    font-size: 22px;
+  }
+
+  .admin-actions {
+    flex-direction: column;
+  }
+
+  .admin-actions .btn {
+    width: 100%;
+    padding: 10px 15px;
+  }
+}

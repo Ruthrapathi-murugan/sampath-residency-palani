@@ -179,3 +179,49 @@
     font-size: 22px;
   }
 }
+
+/* ============================= */
+/* WhatsApp Floating Button      */
+/* ============================= */
+
+.sr-whatsapp-launcher {
+  position: fixed;
+  bottom: 20px;
+  right: 100px; /* leave space for chatbot */
+  z-index: 9999;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.sr-whatsapp-fab {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.sr-whatsapp-fab:hover {
+  transform: scale(1.1);
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .sr-whatsapp-launcher {
+    right: 90px;
+  }
+
+  .sr-whatsapp-fab {
+    width: 52px;
+    height: 52px;
+    font-size: 22px;
+  }
+}

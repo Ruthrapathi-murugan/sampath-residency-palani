@@ -9,6 +9,7 @@ import Services from "./ServicesPage";
 import Home from "../components/home/Home";
 import RoomDetails from "../components/home/RoomDetails";
 import GoogleReviews from "../components/home/GoogleReviews";
+import AdminPanel from "./AdminPanel";
 export {
   Home,
   Booking,
@@ -21,4 +22,5 @@ export {
   RoomDetails,
   Services,
   GoogleReviews,
+  AdminPanel,
 };

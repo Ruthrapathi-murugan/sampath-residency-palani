@@ -114,15 +114,37 @@ export const services = [
     icon: <i class="fa fa-hotel fa-2x text-primary"></i>,
     name: "Rooms",
     discription: "We Have Multiple Choice of Rooms and Different Category",
-    path: "/rooms", // Route for Rooms page
-
-    
+    path: "/rooms",
   },
   {
     icon: <i class="fa fa-utensils fa-2x text-primary"></i>,
-    name: "Room services",
-    discription: "We Provides 24*7 Rooms services",
-    path: "/roomservice", 
+    name: "Room Service",
+    discription: "We Provides 24*7 Room Service",
+    path: "/roomservice",
+  },
+  {
+    icon: <i class="fa fa-car fa-2x text-primary"></i>,
+    name: "Cab Services",
+    discription: "Professional taxi and cab services for airport transfers and sightseeing tours",
+    path: "/services",
+  },
+  {
+    icon: <i class="fa fa-tools fa-2x text-primary"></i>,
+    name: "Auto Repair",
+    discription: "Complete auto repair and maintenance services for your vehicles",
+    path: "/services",
+  },
+  {
+    icon: <i class="fa fa-wifi fa-2x text-primary"></i>,
+    name: "High-Speed WiFi",
+    discription: "Complimentary high-speed internet throughout the property",
+    path: "/services",
+  },
+  {
+    icon: <i class="fa fa-concierge-bell fa-2x text-primary"></i>,
+    name: "Concierge",
+    discription: "24/7 concierge service for all your needs and local recommendations",
+    path: "/services",
   },
 ];
 
@@ -287,7 +309,7 @@ export const footerContact = [
   },
   {
     icon: <i className="fa fa-envelope me-3"></i>,
-    name: "selvamstores24@gmail.com",
+    name: "sampathresidencyatpalani@gmail.com",
   },
 ];
 
@@ -348,28 +370,30 @@ export const roomItems = [
   {
     id: 1,
     img: "../assets/img/room-1.jpg",
-    price: "Rs.1800/night",
-  
+    price: "Rs.2500/night",
+    priceNumeric: 2500,
+    category: "budget",
+    rating: 4.5,
     name: "Double bed A/C",
     star: [
       <small class="fa fa-star text-primary"></small>,
       <small class="fa fa-star text-primary"></small>,
       <small class="fa fa-star text-primary"></small>,
       <small class="fa fa-star text-primary"></small>,
-      <small class="fa fa-star text-primary"></small>,
+      <small class="fa fa-star-half-alt text-primary"></small>,
     ],
-    amenities: ["Air Conditioning",  "Free Wi-Fi",  "TV",  "Private Bathroom"],
+    amenities: ["Air Conditioning", "Free Wi-Fi", "LED TV", "Private Bathroom", "Hot Water", "Spacious Room"],
     additionalImages: [
       "../assets/img/room-1.jpg",
       "../assets/img/room-2.jpg",
-      "../assets/img/Room3.jpeg",],
-      additionalVideos: [
-        "../assets/img/video.mp4",
-        "../assets/img/video.mp4",
-      ],
-    
+      "../assets/img/Room3.jpeg",
+    ],
+    additionalVideos: [
+      "../assets/img/video.mp4",
+      "../assets/img/video.mp4",
+    ],
     description:
-      "Ideal for small families or couples, these rooms provide a cozy and peaceful space to relax after a day of darshan at the renowned Palani Murugan Temple..",
+      "Ideal for small families or couples, these rooms provide a cozy and peaceful space to relax after a day of darshan at the renowned Palani Murugan Temple.",
     yellowbtn: "View Detail",
     darkbtn: "book now",
   },
@@ -377,7 +401,10 @@ export const roomItems = [
   {
     id: 2,
     img: "../assets/img/room-2.jpg",
-    price: "Rs.2000//night",
+    price: "Rs.3000/night",
+    priceNumeric: 3500,
+    category: "mid",
+    rating: 4.7,
     name: "Triple Bed A/C",
     star: [
       <small class="fa fa-star text-primary"></small>,
@@ -386,23 +413,28 @@ export const roomItems = [
       <small class="fa fa-star text-primary"></small>,
       <small class="fa fa-star text-primary"></small>,
     ],
-    amenities: ["Air Conditioning",  "Free Wi-Fi",  "TV",  "Private Bathroom"],
+    amenities: ["Air Conditioning", "Free Wi-Fi", "LED TV", "Private Bathroom", "Hot Water", "Spacious Room", "Work Desk"],
     additionalImages: [
       "../assets/img/room-1.jpg",
-      "../assets/img/room-2.jpg",],
-      additionalVideos: [
-        "../assets/img/video.mp4",
-        "../assets/img/video.mp4",
-      ],
+      "../assets/img/room-2.jpg",
+    ],
+    additionalVideos: [
+      "../assets/img/video.mp4",
+      "../assets/img/video.mp4",
+    ],
     description:
-      " Perfect for medium-sized families or groups, these spacious rooms ensure a comfortable stay with essential amenities to make your pilgrimage memorable.",
+      "Perfect for medium-sized families or groups, these spacious rooms ensure a comfortable stay with essential amenities to make your pilgrimage memorable.",
     yellowbtn: "View Detail",
     darkbtn: "book now",
   },
+
   {
     id: 3,
     img: "../assets/img/room-3.jpg",
-    price: "Rs.2200//night",
+    price: "Rs.3500/night",
+    priceNumeric: 3500,
+    category: "mid",
+    rating: 4.8,
     name: "Four Bed A/C",
     star: [
       <small class="fa fa-star text-primary"></small>,
@@ -410,23 +442,29 @@ export const roomItems = [
       <small class="fa fa-star text-primary"></small>,
       <small class="fa fa-star text-primary"></small>,
       <small class="fa fa-star text-primary"></small>,
-    ], amenities: ["Air Conditioning",  "Free Wi-Fi",  "TV",  "Private Bathroom"],
+    ],
+    amenities: ["Air Conditioning", "Free Wi-Fi", "Smart TV", "Private Bathroom", "Hot Water", "Spacious Room", "Work Desk", "Mini Fridge"],
     additionalImages: [
       "../assets/img/room-3.jpg",
-      "../assets/img/room-3.jpg",],
-      additionalVideos: [
-        "../assets/img/video.mp4",
-        "../assets/img/video.mp4",
-      ],
+      "../assets/img/room-3.jpg",
+    ],
+    additionalVideos: [
+      "../assets/img/video.mp4",
+      "../assets/img/video.mp4",
+    ],
     description:
       "Designed for larger families or small pilgrim groups, these rooms offer ample space and a serene environment to rest and rejuvenate.",
     yellowbtn: "View Detail",
     darkbtn: "book now",
   },
+
   {
     id: 4,
-    img: "../assets/img/room-3.jpg",
-    price: "Rs.2400//night",
+    img: "../assets/img/room-3.jpg",  
+    price: "Rs.4000/night",
+    priceNumeric: 4000,
+    category: "premium",
+    rating: 5.0,
     name: "Five Bed A/C",
     star: [
       <small class="fa fa-star text-primary"></small>,
@@ -435,14 +473,15 @@ export const roomItems = [
       <small class="fa fa-star text-primary"></small>,
       <small class="fa fa-star text-primary"></small>,
     ],
-    amenities: ["Air Conditioning",  "Free Wi-Fi",  "TV",  "Private Bathroom"],
+    amenities: ["Air Conditioning", "Free Wi-Fi", "Smart TV", "Private Bathroom", "Hot Water", "Spacious Room", "Work Desk", "Mini Fridge", "Seating Area"],
     additionalImages: [
       "../assets/img/room-3.jpg",
-      "../assets/img/room-2.jpg",],
-      additionalVideos: [
-        "../assets/img/video.mp4",
-        "../assets/img/video.mp4"
-      ],
+      "../assets/img/room-2.jpg",
+    ],
+    additionalVideos: [
+      "../assets/img/video.mp4",
+      "../assets/img/video.mp4",
+    ],
     description:
       "Tailored for big families or devotional groups, these rooms combine space, comfort, and convenience, ensuring everyone enjoys a harmonious and pleasant stay.",
     yellowbtn: "View Detail",

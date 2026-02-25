@@ -8,20 +8,42 @@ const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isOffline, setIsOffline] = useState(false);
   const [listening, setListening] = useState(false);
   const recognitionRef = useRef(null);
 
-  const toggleChat = () => {
+  const toggleChat = async () => {
+    // If opening, perform a quick health check so we don't attempt sends while offline
+    if (!isOpen) {
+      try {
+        await axios.get("https://backend-sampath-residency.onrender.com/", { timeout: 3000 });
+        setIsOffline(false);
+      } catch (err) {
+        setIsOffline(true);
+        // inform user in messages area
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: "Chat service appears offline — you can still browse the site." },
+        ]);
+      }
+    }
+
     setIsOpen((prev) => !prev);
   };
 
   const sendMessage = async () => {
     if (!input.trim()) return;
+    if (isOffline) {
+      setMessages((prev) => [...prev, { role: "assistant", content: "Chat service is offline. Please try later." }]);
+      return;
+    }
 
     const userMessage = { role: "user", content: input };
     const newHistory = [...messages, userMessage];
     setMessages(newHistory);
     setInput("");
+    setIsLoading(true);
 
     try {
       const res = await axios.post("https://backend-sampath-residency.onrender.com/api/chat", {
@@ -41,13 +63,21 @@ const ChatBot = () => {
       }
     } catch (err) {
       console.error(err);
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: "Error contacting server. Please try again.",
-        },
-      ]);
+      // If network error, mark offline to avoid repeated failing attempts
+      if (!err.response) {
+        setIsOffline(true);
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: "Chat service unreachable — switched to offline mode." },
+        ]);
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: "Error contacting server. Please try again." },
+        ]);
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
