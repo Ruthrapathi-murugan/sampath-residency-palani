@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { db } from "../../firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export default function InventoryManager() {
   const [inventoryData, setInventoryData] = useState({});
@@ -6,6 +8,8 @@ export default function InventoryManager() {
     new Date().toISOString().split("T")[0]
   );
   const [successMessage, setSuccessMessage] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const roomTypes = [
     { id: 1, name: "Double bed A/C", availableRooms: 5 },
@@ -15,12 +19,31 @@ export default function InventoryManager() {
   ];
 
   useEffect(() => {
-    // Load inventory from localStorage
-    const saved = localStorage.getItem("inventoryData");
-    if (saved) {
-      setInventoryData(JSON.parse(saved));
+    const fetchInventory = async () => {
+      setIsLoading(true);
+      try {
+        const docRef = doc(db, "dailyData", selectedDate);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          if (data.inventory) {
+            setInventoryData((prev) => ({
+              ...prev,
+              [selectedDate]: data.inventory
+            }));
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching inventory:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (!inventoryData[selectedDate]) {
+      fetchInventory();
     }
-  }, []);
+  }, [selectedDate]);
 
   const getInventoryForDate = (date) => {
     return inventoryData[date] || {};
@@ -37,10 +60,24 @@ export default function InventoryManager() {
     setInventoryData(newInventory);
   };
 
-  const handleSave = () => {
-    localStorage.setItem("inventoryData", JSON.stringify(inventoryData));
-    setSuccessMessage("Inventory updated successfully!");
-    setTimeout(() => setSuccessMessage(""), 3000);
+  const handleSave = async () => {
+    setIsSaving(true);
+    try {
+      const currentInventoryToSave = inventoryData[selectedDate] || {};
+
+      const docRef = doc(db, "dailyData", selectedDate);
+      await setDoc(docRef, {
+        inventory: currentInventoryToSave
+      }, { merge: true });
+
+      setSuccessMessage("Inventory saved to Cloud correctly!");
+    } catch (err) {
+      console.error("Error saving inventory to cloud:", err);
+      alert("Failed to save inventory to the cloud.");
+    } finally {
+      setIsSaving(false);
+      setTimeout(() => setSuccessMessage(""), 3000);
+    }
   };
 
   const currentDayInventory = getInventoryForDate(selectedDate);
@@ -104,8 +141,16 @@ export default function InventoryManager() {
       </div>
 
       <div className="admin-actions">
-        <button className="btn btn-primary" onClick={handleSave}>
-          <i className="fa fa-save"></i> Save Inventory
+        <button
+          className="btn btn-primary"
+          onClick={handleSave}
+          disabled={isSaving || isLoading}
+        >
+          {isSaving ? (
+            <><span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Saving...</>
+          ) : (
+            <><i className="fa fa-cloud-upload"></i> Save Inventory to Cloud</>
+          )}
         </button>
       </div>
     </div>

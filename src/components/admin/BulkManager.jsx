@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../../css/admin.css";
+import { db } from "../../firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export default function BulkManager() {
-  const [ratesData, setRatesData] = useState({});
-  const [inventoryData, setInventoryData] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
   // Bulk Update Form States
   const [startDate, setStartDate] = useState(new Date().toISOString().split("T")[0]);
@@ -16,19 +17,13 @@ export default function BulkManager() {
   const [inventoryMode, setInventoryMode] = useState("fixed"); // "fixed" or "percentage"
 
   const roomTypes = [
-    { id: 1, name: "Double bed A/C", defaultRate: 1800, totalRooms: 5 },
-    { id: 2, name: "Triple Bed A/C", defaultRate: 2000, totalRooms: 5 },
-    { id: 3, name: "Four Bed A/C", defaultRate: 2200, totalRooms: 5 },
-    { id: 4, name: "Five Bed A/C", defaultRate: 2400, totalRooms: 5 },
+    { id: 1, name: "Double bed A/C", defaultRate: 2500, totalRooms: 5 },
+    { id: 2, name: "Triple Bed A/C", defaultRate: 3500, totalRooms: 5 },
+    { id: 3, name: "Four Bed A/C", defaultRate: 3500, totalRooms: 5 },
+    { id: 4, name: "Five Bed A/C", defaultRate: 4000, totalRooms: 5 },
   ];
 
   useEffect(() => {
-    // Load data from localStorage
-    const savedRates = localStorage.getItem("ratesData");
-    const savedInventory = localStorage.getItem("inventoryData");
-    if (savedRates) setRatesData(JSON.parse(savedRates));
-    if (savedInventory) setInventoryData(JSON.parse(savedInventory));
-
     // Initialize all rooms as selected
     const allRooms = {};
     roomTypes.forEach((room) => {
@@ -77,7 +72,7 @@ export default function BulkManager() {
   };
 
   // Apply bulk updates
-  const applyBulkUpdate = () => {
+  const applyBulkUpdate = async () => {
     const datesInRange = getDatesInRange(startDate, endDate);
     const selectedRoomIds = Object.keys(selectedRooms)
       .filter((id) => selectedRooms[id])
@@ -93,60 +88,82 @@ export default function BulkManager() {
       return;
     }
 
-    // Update Rates
-    if (bulkRate) {
-      const newRates = { ...ratesData };
-      datesInRange.forEach((date) => {
-        newRates[date] = newRates[date] || {};
-        selectedRoomIds.forEach((roomId) => {
-          const room = roomTypes.find((r) => r.id === roomId);
-          const currentRate = newRates[date][roomId] || room.defaultRate;
+    setIsSaving(true);
+    setSuccessMessage("Processing. Please wait...");
 
-          if (rateMode === "fixed") {
-            newRates[date][roomId] = parseInt(bulkRate);
-          } else {
-            // Percentage mode
-            newRates[date][roomId] = Math.round(currentRate * (1 + parseInt(bulkRate) / 100));
-          }
-        });
-      });
-      setRatesData(newRates);
-      localStorage.setItem("ratesData", JSON.stringify(newRates));
-    }
+    try {
+      // Create an array of update promises so we execute all dates in parallel
+      const updatePromises = datesInRange.map(async (date) => {
+        const docRef = doc(db, "dailyData", date);
+        const docSnap = await getDoc(docRef);
+        const existingData = docSnap.exists() ? docSnap.data() : { rates: {}, inventory: {}, blocking: {} };
 
-    // Update Inventory
-    if (bulkInventory) {
-      const newInventory = { ...inventoryData };
-      datesInRange.forEach((date) => {
-        newInventory[date] = newInventory[date] || {};
-        selectedRoomIds.forEach((roomId) => {
-          if (inventoryMode === "fixed") {
-            newInventory[date][roomId] = Math.max(0, parseInt(bulkInventory));
-          } else {
-            // Percentage mode
+        let ratesToUpdate = { ...existingData.rates };
+        let inventoryToUpdate = { ...existingData.inventory };
+
+        // Process Rates
+        if (bulkRate) {
+          selectedRoomIds.forEach((roomId) => {
             const room = roomTypes.find((r) => r.id === roomId);
-            const currentInv = newInventory[date][roomId] || room.totalRooms;
-            newInventory[date][roomId] = Math.round(
-              currentInv * (1 + parseInt(bulkInventory) / 100)
-            );
-          }
-        });
+            const currentDailyRate = ratesToUpdate[roomId];
+            const currentRate = currentDailyRate !== undefined ? currentDailyRate : room.defaultRate;
+
+            if (rateMode === "fixed") {
+              ratesToUpdate[roomId] = parseInt(bulkRate);
+            } else {
+              // Percentage mode
+              ratesToUpdate[roomId] = Math.round(currentRate * (1 + parseInt(bulkRate) / 100));
+            }
+          });
+        }
+
+        // Process Inventory
+        if (bulkInventory) {
+          selectedRoomIds.forEach((roomId) => {
+            if (inventoryMode === "fixed") {
+              inventoryToUpdate[roomId] = Math.max(0, parseInt(bulkInventory));
+            } else {
+              // Percentage mode
+              const room = roomTypes.find((r) => r.id === roomId);
+              const currentDailyInv = inventoryToUpdate[roomId];
+              const currentInv = currentDailyInv !== undefined ? currentDailyInv : room.totalRooms;
+
+              inventoryToUpdate[roomId] = Math.round(
+                currentInv * (1 + parseInt(bulkInventory) / 100)
+              );
+            }
+          });
+        }
+
+        // Set the modified objects back into the document
+        return setDoc(docRef, {
+          rates: ratesToUpdate,
+          inventory: inventoryToUpdate
+        }, { merge: true });
       });
-      setInventoryData(newInventory);
-      localStorage.setItem("inventoryData", JSON.stringify(newInventory));
+
+      // Wait for all dates to be updated
+      await Promise.all(updatePromises);
+
+      // Show success
+      const roomCount = selectedRoomIds.length;
+      const dateCount = datesInRange.length;
+      setSuccessMessage(
+        `✅ Updated ${roomCount} room(s) × ${dateCount} date(s) = ${roomCount * dateCount} entries!`
+      );
+
+      // Reset form
+      setBulkRate("");
+      setBulkInventory("");
+
+    } catch (err) {
+      console.error("Bulk update failed:", err);
+      alert("An error occurred while performing the bulk update. See console.");
+      setSuccessMessage("");
+    } finally {
+      setIsSaving(false);
+      setTimeout(() => setSuccessMessage(""), 4000);
     }
-
-    // Show success
-    const roomCount = selectedRoomIds.length;
-    const dateCount = datesInRange.length;
-    setSuccessMessage(
-      `✅ Updated ${roomCount} room(s) × ${dateCount} date(s) = ${roomCount * dateCount} entries!`
-    );
-    setTimeout(() => setSuccessMessage(""), 4000);
-
-    // Reset form
-    setBulkRate("");
-    setBulkInventory("");
   };
 
   const selectedRoomCount = Object.values(selectedRooms).filter(Boolean).length;
@@ -411,9 +428,13 @@ export default function BulkManager() {
           <button
             className="btn btn-primary btn-lg w-100"
             onClick={applyBulkUpdate}
-            disabled={selectedRoomCount === 0 || (!bulkRate && !bulkInventory)}
+            disabled={selectedRoomCount === 0 || (!bulkRate && !bulkInventory) || isSaving}
           >
-            <i className="fa fa-flash"></i> Apply Bulk Update
+            {isSaving ? (
+              <><span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Processing...</>
+            ) : (
+              <><i className="fa fa-flash"></i> Apply Bulk Cloud Update</>
+            )}
           </button>
         </div>
       </div>

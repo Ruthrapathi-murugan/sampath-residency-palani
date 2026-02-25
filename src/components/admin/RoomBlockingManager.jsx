@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { db } from "../../firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export default function RoomBlockingManager() {
   const [blockingData, setBlockingData] = useState({});
@@ -6,6 +8,8 @@ export default function RoomBlockingManager() {
     new Date().toISOString().split("T")[0]
   );
   const [successMessage, setSuccessMessage] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const roomTypes = [
     { id: 1, name: "Double bed A/C" },
@@ -15,12 +19,31 @@ export default function RoomBlockingManager() {
   ];
 
   useEffect(() => {
-    // Load blocking data from localStorage
-    const saved = localStorage.getItem("blockingData");
-    if (saved) {
-      setBlockingData(JSON.parse(saved));
+    const fetchBlocking = async () => {
+      setIsLoading(true);
+      try {
+        const docRef = doc(db, "dailyData", selectedDate);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          if (data.blocking) {
+            setBlockingData((prev) => ({
+              ...prev,
+              [selectedDate]: data.blocking
+            }));
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching blocking data:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (!blockingData[selectedDate]) {
+      fetchBlocking();
     }
-  }, []);
+  }, [selectedDate]);
 
   const getBlockingForDate = (date) => {
     return blockingData[date] || {};
@@ -40,10 +63,24 @@ export default function RoomBlockingManager() {
     setBlockingData(newBlocking);
   };
 
-  const handleSave = () => {
-    localStorage.setItem("blockingData", JSON.stringify(blockingData));
-    setSuccessMessage("Room blocking updated successfully!");
-    setTimeout(() => setSuccessMessage(""), 3000);
+  const handleSave = async () => {
+    setIsSaving(true);
+    try {
+      const currentBlockingToSave = blockingData[selectedDate] || {};
+
+      const docRef = doc(db, "dailyData", selectedDate);
+      await setDoc(docRef, {
+        blocking: currentBlockingToSave
+      }, { merge: true });
+
+      setSuccessMessage("Room blocking saved to Cloud correctly!");
+    } catch (err) {
+      console.error("Error saving blocking to cloud:", err);
+      alert("Failed to save room locks to the cloud.");
+    } finally {
+      setIsSaving(false);
+      setTimeout(() => setSuccessMessage(""), 3000);
+    }
   };
 
   const currentDayBlocking = getBlockingForDate(selectedDate);
@@ -120,8 +157,16 @@ export default function RoomBlockingManager() {
       </div>
 
       <div className="admin-actions">
-        <button className="btn btn-primary" onClick={handleSave}>
-          <i className="fa fa-save"></i> Save Changes
+        <button
+          className="btn btn-primary"
+          onClick={handleSave}
+          disabled={isSaving || isLoading}
+        >
+          {isSaving ? (
+            <><span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Saving...</>
+          ) : (
+            <><i className="fa fa-cloud-upload"></i> Save Changes to Cloud</>
+          )}
         </button>
       </div>
 

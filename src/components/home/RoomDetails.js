@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { roomItems } from "../data/Data";
 import emailjs from "@emailjs/browser"; // For API calls to send emails
+import { db } from "../../firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export default function RoomDetails() {
   const { id } = useParams();
@@ -19,8 +21,10 @@ export default function RoomDetails() {
     email: "",
     phone: "",
     address: "",
-    checkIn: "",
-    checkOut: "",
+    checkIn: searchParams.get("checkIn") || "",
+    checkOut: searchParams.get("checkOut") || "",
+    adults: searchParams.get("adults") || "1",
+    children: searchParams.get("children") || "0",
     specialRequests: "",
     roomCategory: room?.name || "",
     roomPrice: room?.price || "",
@@ -38,23 +42,23 @@ export default function RoomDetails() {
     setIsSubmitting(true);
 
     // EmailJS constants - User needs to replace these with their own from emailjs.com
-   const serviceID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
-   const hotelTemplateID = process.env.REACT_APP_EMAILJS_HOTEL_TEMPLATE_ID;
-   const customerTemplateID = process.env.REACT_APP_EMAILJS_CUSTOMER_TEMPLATE_ID;
-   const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+    const serviceID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+    const hotelTemplateID = process.env.REACT_APP_EMAILJS_HOTEL_TEMPLATE_ID;
+    const customerTemplateID = process.env.REACT_APP_EMAILJS_CUSTOMER_TEMPLATE_ID;
+    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
 
-   console.log("Debug EmailJS Keys:", {
-       serviceID: !!serviceID,
-       hotelTemplateID: !!hotelTemplateID,
-       customerTemplateID: !!customerTemplateID,
-       publicKey: !!publicKey,
-   });
+    console.log("Debug EmailJS Keys:", {
+      serviceID: !!serviceID,
+      hotelTemplateID: !!hotelTemplateID,
+      customerTemplateID: !!customerTemplateID,
+      publicKey: !!publicKey,
+    });
 
-   if (!serviceID || !hotelTemplateID || !publicKey) {
-       alert("EmailJS configuration is missing. Please check the logs.");
-       setIsSubmitting(false);
-       return;
-   }
+    if (!serviceID || !hotelTemplateID || !publicKey) {
+      alert("EmailJS configuration is missing. Please check the logs.");
+      setIsSubmitting(false);
+      return;
+    }
 
 
     const templateParams = {
@@ -78,31 +82,37 @@ export default function RoomDetails() {
     // 1. Send Booking Details to Hotel
     emailjs
       .send(serviceID, hotelTemplateID, templateParams, publicKey)
-      .then((response) => {
+      .then(async (response) => {
         console.log("✅ Hotel Email Sent!", response.status, response.text);
 
-        // 2. Send Confirmation to Customer
-        return emailjs.send(
-          serviceID,
-          customerTemplateID,
-          templateParams,
-          publicKey
-        );
+        // Save Booking to Firestore so Admin can see it
+        try {
+          await addDoc(collection(db, "bookings"), {
+            ...formData,
+            roomId: room?.id,
+            status: "pending", // Can be approved/rejected by admin later
+            createdAt: serverTimestamp(),
+          });
+          console.log("✅ Booking saved to Firestore!");
+        } catch (dbErr) {
+          console.error("❌ Failed to save booking to Firestore:", dbErr);
+          // We don't fail the whole user flow if db fails but email succeeds
+        }
+
+        // We no longer send the confirmation email to the customer here. 
+        // Admin will send it upon approval from the dashboard.
       })
-      .then((response) => {
-        console.log("✅ Customer Email Sent!", response.status, response.text);
+      .then(() => {
+        console.log("✅ Booking Placed successfully!");
         setSubmitSuccess(true);
-        setFormData({
+        setFormData(prev => ({
+          ...prev, // Keep dates
           name: "",
           email: "",
           phone: "",
           address: "",
-          checkIn: "",
-          checkOut: "",
           specialRequests: "",
-          roomCategory: room?.name || "",
-          roomPrice: room?.price || "",
-        });
+        }));
       })
       .catch((err) => {
         console.error("❌ Email Sending Failed:", err);
@@ -316,7 +326,8 @@ export default function RoomDetails() {
                       value={formData.checkIn}
                       onChange={handleInputChange}
                       required
-                      min={new Date().toISOString().split("T")[0]} // 👉 sets min date to today
+                      readOnly={!!searchParams.get("checkIn")} // Prevent changing if passed from the search page
+                      style={{ backgroundColor: searchParams.get("checkIn") ? "#e9ecef" : "white" }}
                     />
                   </div>
 
@@ -329,10 +340,8 @@ export default function RoomDetails() {
                       value={formData.checkOut}
                       onChange={handleInputChange}
                       required
-                      min={
-                        formData.checkIn ||
-                        new Date().toISOString().split("T")[0]
-                      } // 👉 check-out can't be before check-in
+                      readOnly={!!searchParams.get("checkOut")} // Prevent changing if passed from the search page
+                      style={{ backgroundColor: searchParams.get("checkOut") ? "#e9ecef" : "white" }}
                     />
                   </div>
 

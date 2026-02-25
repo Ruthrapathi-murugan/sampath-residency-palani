@@ -3,10 +3,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  getAvailableRooms,
-  getRoomWithAvailability,
-  getAvailableInventory,
-  getRateForDate,
+  getAvailableRoomsAsync,
+  getRoomWithAvailabilityAsync,
+  getAvailableInventoryAsync,
+  getRateForDateAsync,
 } from "../../utils/inventoryUtils";
 
 export default function Book() {
@@ -19,6 +19,7 @@ export default function Book() {
   const [baseAvailableRoomsInfo, setBaseAvailableRoomsInfo] = useState([]); // All available rooms for the date
   const [availableRoomsInfo, setAvailableRoomsInfo] = useState([]); // Filtered rooms
   const [availabilityMessage, setAvailabilityMessage] = useState("");
+  const [isCheckingAvailability, setIsCheckingAvailability] = useState(false);
   const [roomSelections, setRoomSelections] = useState([""]); // one selection per room
   const [numberOfNights, setNumberOfNights] = useState(0);
 
@@ -98,24 +99,31 @@ export default function Book() {
     setNumberOfNights(nights);
   }, [checkIn, checkOut]);
 
-  const handleCheckInChange = (date) => {
+  const handleCheckInChange = async (date) => {
     setCheckIn(date);
     setAvailabilityMessage("");
     setBaseAvailableRoomsInfo([]);
     if (!date) return;
+
+    setIsCheckingAvailability(true);
     const iso = formatDateToISO(date);
     try {
-      const availableIds = getAvailableRooms(iso);
+      const availableIds = await getAvailableRoomsAsync(iso);
       if (!availableIds || availableIds.length === 0) {
         setAvailabilityMessage("No rooms available for selected date.");
+        setIsCheckingAvailability(false);
         return;
       }
-      const allInfo = availableIds.map((id) => getRoomWithAvailability(id, iso));
-      setBaseAvailableRoomsInfo(allInfo);
 
+      const allInfoPromises = availableIds.map((id) => getRoomWithAvailabilityAsync(id, iso));
+      const allInfo = await Promise.all(allInfoPromises);
+
+      setBaseAvailableRoomsInfo(allInfo);
     } catch (err) {
       console.error("Failed to compute availability:", err);
-      setAvailabilityMessage("Error checking availability. See console.");
+      setAvailabilityMessage("Error checking availability. Please try again.");
+    } finally {
+      setIsCheckingAvailability(false);
     }
   };
 
@@ -252,7 +260,16 @@ export default function Book() {
       </div>
 
       {/* Availability Panel - MakeMyTrip/Booking.com Style */}
-      {availableRoomsInfo && availableRoomsInfo.length > 0 && (
+      {isCheckingAvailability && (
+        <div className="mt-5 text-center py-5">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <h5 className="mt-3">Checking Live Availability...</h5>
+        </div>
+      )}
+
+      {!isCheckingAvailability && availableRoomsInfo && availableRoomsInfo.length > 0 && (
         <div className="mt-5">
           {availabilityMessage && (
             <div className="alert alert-success mb-4">
@@ -561,7 +578,7 @@ export default function Book() {
       )}
 
       {/* No rooms message */}
-      {availabilityMessage && availableRoomsInfo.length === 0 && (
+      {!isCheckingAvailability && availabilityMessage && availableRoomsInfo.length === 0 && (
         <div className="mt-5">
           <div className="alert alert-warning text-center py-5">
             <i className="fas fa-inbox" style={{ fontSize: "48px", marginBottom: "15px", display: "block", color: "#ff9800" }}></i>

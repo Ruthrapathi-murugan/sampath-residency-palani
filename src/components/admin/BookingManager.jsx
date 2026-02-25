@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { generateAllBookingsPDF, generateBookingPDF } from "../../utils/pdfGenerator";
+import { db } from "../../firebase";
+import { collection, query, orderBy, onSnapshot, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { reduceInventoryAsync } from "../../utils/inventoryUtils";
 import "../../css/admin.css";
 
 export default function BookingManager() {
@@ -10,7 +13,18 @@ export default function BookingManager() {
   const [sortBy, setSortBy] = useState("newest"); // newest, oldest, upcoming, checkIn, revenue
 
   useEffect(() => {
-    loadBookings();
+    const q = query(collection(db, "bookings"), orderBy("createdAt", "desc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const data = [];
+      snapshot.forEach((docSnap) => {
+        data.push({ id: docSnap.id, ...docSnap.data() });
+      });
+      setBookings(data);
+    }, (error) => {
+      console.error("Error fetching bookings:", error);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   // Calculate booking statistics
@@ -70,46 +84,28 @@ export default function BookingManager() {
     }
   };
 
-  const loadBookings = () => {
-    try {
-      const existing = JSON.parse(localStorage.getItem("bookings") || "[]");
-      // sort newest first
-      existing.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      setBookings(existing);
-    } catch (err) {
-      console.error("Failed to load bookings:", err);
-      setBookings([]);
-    }
-  };
-
-  const removeBooking = (id) => {
+  const removeBooking = async (id) => {
     if (!window.confirm("Delete this booking?")) return;
     try {
-      const existing = JSON.parse(localStorage.getItem("bookings") || "[]");
-      const filtered = existing.filter((b) => b.id !== id);
-      localStorage.setItem("bookings", JSON.stringify(filtered));
-      setBookings(filtered);
+      await deleteDoc(doc(db, "bookings", id));
     } catch (err) {
       console.error("Failed to remove booking:", err);
+      alert("Failed to delete booking.");
     }
   };
 
-  const updateBookingStatus = (id, newStatus) => {
+  const updateBookingStatus = async (id, newStatus) => {
     try {
-      const existing = JSON.parse(localStorage.getItem("bookings") || "[]");
-      const updated = existing.map((b) => 
-        b.id === id ? { ...b, status: newStatus } : b
-      );
-      localStorage.setItem("bookings", JSON.stringify(updated));
-      setBookings(updated);
+      await updateDoc(doc(db, "bookings", id), { status: newStatus });
     } catch (err) {
       console.error("Failed to update booking:", err);
+      throw err;
     }
   };
 
   const approveBooking = async (booking) => {
     setActionInProgress(`approve-${booking.id}`);
-    
+
     try {
       // Send approval email to customer
       const serviceID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
@@ -118,20 +114,20 @@ export default function BookingManager() {
 
       if (serviceID && customerTemplateID && publicKey) {
         const templateParams = {
-          from_name: booking.customerName || "",
-          from_email: booking.customerEmail || "",
-          email: booking.customerEmail || "",
-          reply_to: booking.customerEmail || "",
+          from_name: booking.name || "",
+          from_email: booking.email || "",
+          email: booking.email || "",
+          reply_to: booking.email || "",
           phone: booking.phone || "",
           address: booking.address || "",
           check_in: booking.checkIn || "",
           check_out: booking.checkOut || "",
           number_of_nights: booking.numberOfNights || 1,
-          price_per_night: booking.pricePerNight || "",
-          total_price: booking.totalPrice || "",
+          price_per_night: booking.roomPrice || "",
+          total_price: booking.totalPrice || booking.roomPrice || "",
           special_requests: booking.specialRequests || "",
-          room_category: booking.roomName || "",
-          to_email: booking.customerEmail || "",
+          room_category: booking.roomCategory || "",
+          to_email: booking.email || "",
           booking_status: "APPROVED",
         };
 
@@ -142,10 +138,24 @@ export default function BookingManager() {
       }
 
       // Update booking status
-      updateBookingStatus(booking.id, "approved");
+      await updateBookingStatus(booking.id, "approved");
+
+      // Reduce Inventory for the booked dates
+      if (booking.roomId && booking.checkIn && booking.checkOut) {
+        let start = new Date(booking.checkIn);
+        const end = new Date(booking.checkOut);
+
+        // Loop through each night and reduce inventory by 1
+        while (start < end) {
+          const dateStr = start.toISOString().split("T")[0];
+          await reduceInventoryAsync(booking.roomId, dateStr, 1);
+          start.setDate(start.getDate() + 1);
+        }
+      }
+
     } catch (err) {
       console.error("Failed to approve booking:", err);
-      alert("Failed to send approval email. Check console for details.");
+      alert("Failed to send approval email or update database. Check console for details.");
     } finally {
       setActionInProgress(null);
     }
@@ -156,7 +166,7 @@ export default function BookingManager() {
     if (reason === null) return; // User cancelled
 
     setActionInProgress(`reject-${booking.id}`);
-    
+
     try {
       // Send rejection email to customer
       const serviceID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
@@ -165,20 +175,20 @@ export default function BookingManager() {
 
       if (serviceID && customerTemplateID && publicKey) {
         const templateParams = {
-          from_name: booking.customerName || "",
-          from_email: booking.customerEmail || "",
-          email: booking.customerEmail || "",
-          reply_to: booking.customerEmail || "",
+          from_name: booking.name || "",
+          from_email: booking.email || "",
+          email: booking.email || "",
+          reply_to: booking.email || "",
           phone: booking.phone || "",
           address: booking.address || "",
           check_in: booking.checkIn || "",
           check_out: booking.checkOut || "",
           number_of_nights: booking.numberOfNights || 1,
-          price_per_night: booking.pricePerNight || "",
-          total_price: booking.totalPrice || "",
+          price_per_night: booking.roomPrice || "",
+          total_price: booking.totalPrice || booking.roomPrice || "",
           special_requests: booking.specialRequests || "",
-          room_category: booking.roomName || "",
-          to_email: booking.customerEmail || "",
+          room_category: booking.roomCategory || "",
+          to_email: booking.email || "",
           booking_status: "REJECTED",
           rejection_reason: reason || "Not available",
         };
@@ -190,10 +200,10 @@ export default function BookingManager() {
       }
 
       // Update booking status
-      updateBookingStatus(booking.id, "rejected");
+      await updateBookingStatus(booking.id, "rejected");
     } catch (err) {
       console.error("Failed to reject booking:", err);
-      alert("Failed to send rejection email. Check console for details.");
+      alert("Failed to send rejection email or update database. Check console for details.");
     } finally {
       setActionInProgress(null);
     }
@@ -342,14 +352,14 @@ export default function BookingManager() {
           <tbody>
             {sortedBookings.map((b) => (
               <tr key={b.id} style={{ backgroundColor: b.status === "pending" ? "#fff3cd" : b.status === "approved" ? "#d4edda" : "#f8d7da" }}>
-                <td>{new Date(b.createdAt).toLocaleString()}</td>
-                <td>{b.roomName}</td>
-                <td>{b.customerName}</td>
-                <td>{b.customerEmail}</td>
+                <td>{b.createdAt?.toDate ? b.createdAt.toDate().toLocaleString() : new Date(b.createdAt).toLocaleString()}</td>
+                <td>{b.roomCategory || b.roomName}</td>
+                <td>{b.name || b.customerName}</td>
+                <td>{b.email || b.customerEmail}</td>
                 <td>{b.checkIn}</td>
                 <td>{b.checkOut}</td>
                 <td>
-                  <strong>Rs.{b.totalPrice || b.roomPrice || 0}</strong>
+                  <strong>{b.totalPrice ? `Rs. ${b.totalPrice}` : (b.roomPrice || "Rs. 0")}</strong>
                   <br />
                   <small style={{ color: "#666" }}>({b.numberOfNights || 1} nights)</small>
                 </td>
