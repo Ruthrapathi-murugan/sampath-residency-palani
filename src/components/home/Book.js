@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   getAvailableRoomsAsync,
   getRoomWithAvailabilityAsync,
-  getAvailableInventoryAsync,
-  getRateForDateAsync,
 } from "../../utils/inventoryUtils";
 
 export default function Book() {
@@ -73,7 +71,7 @@ export default function Book() {
     } else {
       setAvailabilityMessage(`${filteredInfo.length} room category(ies) available for ${iso}`);
     }
-  }, [baseAvailableRoomsInfo, adults, children, roomsCount]);
+  }, [baseAvailableRoomsInfo, adults, children, roomsCount, checkIn]); // intentionally leaving roomCapacities out to avoid re-renders or we can just move it outside.
 
   const navigate = useNavigate();
 
@@ -86,15 +84,14 @@ export default function Book() {
   };
 
   // Calculate number of nights between check-in and check-out
-  const calculateNights = () => {
-    if (!checkIn || !checkOut) return 0;
-    const timeDiff = checkOut.getTime() - checkIn.getTime();
-    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    return daysDiff > 0 ? daysDiff : 0;
-  };
-
-  // Update nights when dates change
   useEffect(() => {
+    const calculateNights = () => {
+      if (!checkIn || !checkOut) return 0;
+      const timeDiff = checkOut.getTime() - checkIn.getTime();
+      const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      return daysDiff > 0 ? daysDiff : 0;
+    };
+
     const nights = calculateNights();
     setNumberOfNights(nights);
   }, [checkIn, checkOut]);
@@ -525,7 +522,6 @@ export default function Book() {
                   <div className="row g-3">
                     {roomSelections.map((sel, idx) => {
                       const totalGuests = adults + children;
-                      const minimalPerRoom = Math.ceil(totalGuests / roomsCount) || 1;
                       const options = availableRoomsInfo.filter((info) => {
                         const cap = roomCapacities[info.id];
                         if (!cap) return true;

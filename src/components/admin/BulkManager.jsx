@@ -3,6 +3,13 @@ import "../../css/admin.css";
 import { db } from "../../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
+const roomTypes = [
+  { id: 1, name: "Double bed A/C", defaultRate: 2500, totalRooms: 5 },
+  { id: 2, name: "Triple Bed A/C", defaultRate: 3500, totalRooms: 5 },
+  { id: 3, name: "Four Bed A/C", defaultRate: 3500, totalRooms: 5 },
+  { id: 4, name: "Five Bed A/C", defaultRate: 4000, totalRooms: 5 },
+];
+
 export default function BulkManager() {
   const [successMessage, setSuccessMessage] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -16,12 +23,6 @@ export default function BulkManager() {
   const [rateMode, setRateMode] = useState("fixed"); // "fixed" or "percentage"
   const [inventoryMode, setInventoryMode] = useState("fixed"); // "fixed" or "percentage"
 
-  const roomTypes = [
-    { id: 1, name: "Double bed A/C", defaultRate: 2500, totalRooms: 5 },
-    { id: 2, name: "Triple Bed A/C", defaultRate: 3500, totalRooms: 5 },
-    { id: 3, name: "Four Bed A/C", defaultRate: 3500, totalRooms: 5 },
-    { id: 4, name: "Five Bed A/C", defaultRate: 4000, totalRooms: 5 },
-  ];
 
   useEffect(() => {
     // Initialize all rooms as selected

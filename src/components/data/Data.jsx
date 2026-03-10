@@ -63,7 +63,7 @@ export const navList = [
 export const socialIcons = [
   {
     icon: <i className="fab fa-facebook-f"></i>,
-    url: "https://www.facebook.com/sampathresidency" // replace with real page
+    url: "https://www.facebook.com/profile.php?id=100090833752605" // replace with real page
   },
   {
     icon: <i className="fab fa-instagram"></i>,

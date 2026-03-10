@@ -50,7 +50,7 @@ export default function RateManager() {
     if (!ratesData[selectedDate]) {
       fetchRates();
     }
-  }, [selectedDate]);
+  }, [selectedDate, ratesData]);
 
   const getRatesForDate = (date) => {
     return ratesData[date] || {};

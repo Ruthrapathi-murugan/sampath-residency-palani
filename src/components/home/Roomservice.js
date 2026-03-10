@@ -1,5 +1,5 @@
+
 import React from "react";
-import CommonHeading from "../common/CommonHeading";
 
 const Roomservice = () => {
     const services = [

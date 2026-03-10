@@ -8,7 +8,7 @@ import "../../css/admin.css";
 
 export default function BookingManager() {
   const [bookings, setBookings] = useState([]);
-  const [sendingId, setSendingId] = useState(null);
+
   const [actionInProgress, setActionInProgress] = useState(null);
   const [sortBy, setSortBy] = useState("newest"); // newest, oldest, upcoming, checkIn, revenue
 

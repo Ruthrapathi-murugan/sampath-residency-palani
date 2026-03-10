@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import CommonHeading from "../common/CommonHeading";
-import { facility, roomItems } from "../data/Data";
+import { roomItems } from "../data/Data";
 import { Link } from "react-router-dom";
+import BookNowModal from "../common/BookNowModal";
 
 export default function Rooms() {
+  const [showModal, setShowModal] = useState(false);
   const [sortBy, setSortBy] = useState("default");
   const [priceFilter, setPriceFilter] = useState("all");
   const [comparisonList, setComparisonList] = useState([]);
@@ -215,12 +217,12 @@ export default function Rooms() {
                       >
                         👁️ View Details
                       </Link>
-                      <Link
+                      <button
                         className="btn btn-sm btn-success rounded py-2 px-3"
-                        to={`/room/${item.id}?book=true`}
+                        onClick={() => setShowModal(true)}
                       >
                         🛏️ Book Now
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -237,6 +239,7 @@ export default function Rooms() {
           )}
         </div>
       </div>
+      <BookNowModal show={showModal} handleClose={() => setShowModal(false)} />
     </>
   );
 }

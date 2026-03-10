@@ -1,5 +1,5 @@
 import React from "react";
-import Heading from "../common/Heading";
+
 import { about } from "../data/Data";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 export default function About() {
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
-}, []);
+  }, []);
 
   return (
     <>
@@ -60,42 +60,46 @@ export default function About() {
                 Explore More
               </a>
             </div>
- <div className="col-lg-6">
-  <div className="row g-3">
-    <div className="col-6 text-end">
-      <img
-        className="img-fluid rounded w-100"
-        data-aos="fade-up-right"
-        src="/assets/img/room-1.jpg"
-        style={{ height: "250px", objectFit: "cover"}}
-      />
-    </div>
-    <div className="col-6 text-start">
-      <img
-        className="img-fluid rounded w-100"
-        data-aos="fade-up-left"
-        src="/assets/img/room-2.jpg"
-        style={{ height: "250px", objectFit: "cover" }}
-      />
-    </div>
-    <div className="col-6 text-end">
-      <img
-        className="img-fluid rounded w-100"
-        data-aos="zoom-in-up"
-        src="/assets/img/room-3.jpg"
-        style={{ height: "250px", objectFit: "cover" }}
-      />
-    </div>
-    <div className="col-6 text-start">
-      <img
-        className="img-fluid rounded w-100"
-        data-aos="fade-up"
-        src="/assets/img/Room1.jpeg"
-        style={{ height: "250px", objectFit: "cover" }}
-      />
-    </div>
-  </div>
-</div>
+            <div className="col-lg-6">
+              <div className="row g-3">
+                <div className="col-6 text-end">
+                  <img
+                    alt=""
+                    className="img-fluid rounded w-100"
+                    data-aos="fade-up-right"
+                    src="/assets/img/room-1.jpg"
+                    style={{ height: "250px", objectFit: "cover" }}
+                  />
+                </div>
+                <div className="col-6 text-start">
+                  <img
+                    alt=""
+                    className="img-fluid rounded w-100"
+                    data-aos="fade-up-left"
+                    src="/assets/img/room-2.jpg"
+                    style={{ height: "250px", objectFit: "cover" }}
+                  />
+                </div>
+                <div className="col-6 text-end">
+                  <img
+                    alt=""
+                    className="img-fluid rounded w-100"
+                    data-aos="zoom-in-up"
+                    src="/assets/img/room-3.jpg"
+                    style={{ height: "250px", objectFit: "cover" }}
+                  />
+                </div>
+                <div className="col-6 text-start">
+                  <img
+                    alt=""
+                    className="img-fluid rounded w-100"
+                    data-aos="fade-up"
+                    src="/assets/img/Room1.jpeg"
+                    style={{ height: "250px", objectFit: "cover" }}
+                  />
+                </div>
+              </div>
+            </div>
 
 
           </div>

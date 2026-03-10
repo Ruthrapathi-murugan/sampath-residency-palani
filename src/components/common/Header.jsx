@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { navList } from "../data/Data";
 import SocialIcons from "./SocialIcons";
+import BookNowModal from "./BookNowModal";
 
 export default function Header() {
   const [navbarCollapse, setNavbarCollapse] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [showBookModal, setShowBookModal] = useState(false);
 
   const handleMouseEnter = (itemId) => {
     setActiveDropdown(itemId);
@@ -64,9 +66,8 @@ export default function Header() {
                 <span className="navbar-toggler-icon"></span>
               </button>
               <div
-                className={`navbar-collapse justify-content-around ${
-                  navbarCollapse ? "show" : "collapse"
-                }`}
+                className={`navbar-collapse justify-content-around ${navbarCollapse ? "show" : "collapse"
+                  }`}
               >
                 <div className="navbar-nav mr-auto py-0">
                   {navList.map((item, index) => (
@@ -76,9 +77,8 @@ export default function Header() {
                           <Link className="nav-link dropdown-toggle" to="#">
                             {item.text}
                           </Link>
-                          <div className={`dropdown-menu rounded-0 m-0 ${
-                            activeDropdown === item.id ? "show" : ""
-                          }`}>
+                          <div className={`dropdown-menu rounded-0 m-0 ${activeDropdown === item.id ? "show" : ""
+                            }`}>
                             {item.subItems.map((sub, subIndex) => (
                               <Link
                                 key={subIndex}
@@ -103,12 +103,27 @@ export default function Header() {
                     </div>
                   ))}
                 </div>
-                <SocialIcons />
+                <button
+                  className="btn btn-primary rounded py-2 px-4 d-none d-lg-block ms-3"
+                  onClick={() => setShowBookModal(true)}
+                >
+                  Book Now
+                </button>
+                <button
+                  className="btn btn-primary rounded py-2 px-4 d-block d-lg-none mt-3"
+                  onClick={() => setShowBookModal(true)}
+                >
+                  Book Now
+                </button>
+                <div className="ms-lg-3 mt-3 mt-lg-0">
+                  <SocialIcons />
+                </div>
               </div>
             </nav>
           </div>
         </div>
       </div>
+      <BookNowModal show={showBookModal} handleClose={() => setShowBookModal(false)} />
     </>
   );
 }

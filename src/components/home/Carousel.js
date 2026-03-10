@@ -37,11 +37,11 @@ export default function Carousel() {
         {carouselData.map((val, index) => (
           <div key={index}>
             <div className="position-relative">
-              <img 
-                className="w-100" 
-                src={val.img} 
-                alt="Image" 
-                style={{ height: "600px", objectFit: "cover" }} 
+              <img
+                className="w-100"
+                src={val.img}
+                alt={val.title || "Carousel slide"}
+                style={{ height: "600px", objectFit: "cover" }}
               />
               <div className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
                 <div className="text-center p-3" style={{ maxWidth: "1000px" }}>
@@ -69,7 +69,7 @@ export default function Carousel() {
           </div>
         ))}
       </Slider>
-      
+
       {/* Custom arrows */}
       <button
         className="position-absolute top-50 start-0 translate-middle-y btn btn-link text-white"

@@ -28,14 +28,14 @@ export default function Contact() {
                       <div className="ms-2">
                         {/* Display single contact number */}
                         {item.contact && !Array.isArray(item.contact) && (
-                          <a 
-                            href={`tel:${item.contact.replace(/\s+/g, '')}`} 
+                          <a
+                            href={`tel:${item.contact.replace(/\s+/g, '')}`}
                             className="text-decoration-none d-block"
                           >
                             {item.contact}
                           </a>
                         )}
-                        
+
                         {/* Display multiple contact numbers */}
                         {Array.isArray(item.contacts) && item.contacts.map((number, numIndex) => (
                           <a
@@ -46,7 +46,7 @@ export default function Contact() {
                             {number}
                           </a>
                         ))}
-                        
+
                         {/* Display email */}
                         {item.email && (
                           <a
@@ -64,7 +64,8 @@ export default function Contact() {
             </div>
             <div className="col-md-6 wow fadeIn" data-wow-delay="0.1s">
               <iframe
-                className="position-relative rounded w-100 h-100"
+                className="position-relative py-0 rounded w-100 h-100"
+                title="SAMPATH RESIDENCE MAP"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1004468.7649309416!2d76.37067524687498!3d10.444879299999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba9df4d869956d7%3A0xcba27d0cdf7bf7f!2sSampath%20Residency!5e0!3m2!1sen!2sin!4v1736251180031!5m2!1sen!2sin"
                 frameBorder="0"
                 style={{ minHeight: "350px", border: "0" }}

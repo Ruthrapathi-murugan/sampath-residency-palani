@@ -43,7 +43,7 @@ export default function InventoryManager() {
     if (!inventoryData[selectedDate]) {
       fetchInventory();
     }
-  }, [selectedDate]);
+  }, [selectedDate, inventoryData]);
 
   const getInventoryForDate = (date) => {
     return inventoryData[date] || {};
