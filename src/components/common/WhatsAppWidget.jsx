@@ -3,7 +3,7 @@ import React from "react";
 export default function WhatsAppWidget() {
     return (
         <a
-            href="https://wa.me/919876543210" // Update this with your actual hotel WhatsApp number
+            href="https://wa.me/919894574934" // Update this with your actual hotel WhatsApp number
             className="whatsapp_float"
             target="_blank"
             rel="noopener noreferrer"
